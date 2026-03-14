@@ -33,6 +33,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    console.log('[Telegram] sending to chat_id:', chatId, '| token prefix:', token.slice(0, 10));
+
     const lines = [
       '📩 *Nuevo mensaje del portafolio*',
       '',
@@ -52,9 +54,9 @@ export async function POST(req: NextRequest) {
 
     if (!res.ok) {
       const err = await res.json();
-      console.error('Telegram error:', err);
+      console.error('[Telegram] status:', res.status, 'body:', JSON.stringify(err));
       return NextResponse.json(
-        { error: 'Error al enviar el mensaje. Intenta de nuevo.' },
+        { error: `Telegram error ${res.status}: ${err?.description ?? JSON.stringify(err)}` },
         { status: 500 }
       );
     }
