@@ -143,7 +143,7 @@ export default function Skills() {
                     <div className="w-7 h-7 flex items-center justify-center">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={tech.icon ?? `https://cdn.simpleicons.org/${tech.slug}`}
+                        src={`https://cdn.simpleicons.org/${tech.slug}`}
                         alt={tech.name}
                         width={28}
                         height={28}
