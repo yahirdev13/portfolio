@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,68 +19,45 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const emailUser = process.env.EMAIL_USER;
-    const emailPass = process.env.EMAIL_PASS;
-    const emailTo   = process.env.EMAIL_TO || emailUser;
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    const chatId = process.env.TELEGRAM_CHAT_ID;
 
-    if (!emailUser || !emailPass) {
-      // In development without env vars, just return success
+    if (!token || !chatId) {
       if (process.env.NODE_ENV === 'development') {
-        console.log('📧 [DEV] Contact form submission:', { name, email, projectType, budget, message });
+        console.log('📩 [DEV] Contact form:', { name, email, projectType, budget, message });
         return NextResponse.json({ ok: true });
       }
       return NextResponse.json(
-        { error: 'Servicio de email no configurado.' },
+        { error: 'Servicio de contacto no configurado.' },
         { status: 500 }
       );
     }
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: { user: emailUser, pass: emailPass },
+    const lines = [
+      '📩 *Nuevo mensaje del portafolio*',
+      '',
+      `👤 Nombre: ${name}`,
+      `📧 Email: ${email}`,
+      projectType ? `🗂 Tipo: ${projectType}` : null,
+      budget ? `💰 Presupuesto: ${budget}` : null,
+      '',
+      `💬 Mensaje:\n${message}`,
+    ].filter(Boolean).join('\n');
+
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId, text: lines, parse_mode: 'Markdown' }),
     });
 
-    await transporter.sendMail({
-      from: `"Portfolio Contact" <${emailUser}>`,
-      to: emailTo,
-      replyTo: email,
-      subject: `[Portfolio] Nuevo contacto: ${name} — ${projectType || 'Sin tipo'}`,
-      html: `
-        <div style="font-family: Inter, sans-serif; max-width: 600px; margin: 0 auto; background: #0F172A; color: #F1F5F9; border-radius: 12px; overflow: hidden;">
-          <div style="background: linear-gradient(135deg, #3B82F6, #2563EB); padding: 24px 32px;">
-            <h1 style="margin: 0; font-size: 20px; font-weight: 700; color: #fff;">Nuevo mensaje de contacto</h1>
-            <p style="margin: 4px 0 0; font-size: 14px; color: rgba(255,255,255,0.8);">Desde tu portafolio</p>
-          </div>
-          <div style="padding: 32px; background: #1E293B;">
-            <table style="width: 100%; border-collapse: collapse;">
-              <tr>
-                <td style="padding: 8px 0; color: #64748B; font-size: 13px; width: 140px;">Nombre</td>
-                <td style="padding: 8px 0; color: #F1F5F9; font-size: 14px; font-weight: 600;">${name}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 0; color: #64748B; font-size: 13px;">Email</td>
-                <td style="padding: 8px 0; color: #60A5FA; font-size: 14px;">${email}</td>
-              </tr>
-              ${projectType ? `<tr>
-                <td style="padding: 8px 0; color: #64748B; font-size: 13px;">Tipo de proyecto</td>
-                <td style="padding: 8px 0; color: #F1F5F9; font-size: 14px;">${projectType}</td>
-              </tr>` : ''}
-              ${budget ? `<tr>
-                <td style="padding: 8px 0; color: #64748B; font-size: 13px;">Presupuesto</td>
-                <td style="padding: 8px 0; color: #34D399; font-size: 14px; font-weight: 600;">${budget}</td>
-              </tr>` : ''}
-            </table>
-            <div style="margin-top: 24px; padding: 16px; background: #0F172A; border-radius: 8px; border: 1px solid rgba(148,163,184,0.10);">
-              <p style="margin: 0 0 8px; color: #64748B; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Descripción del proyecto</p>
-              <p style="margin: 0; color: #F1F5F9; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${message}</p>
-            </div>
-          </div>
-          <div style="padding: 16px 32px; background: #0F172A; text-align: center;">
-            <p style="margin: 0; color: #334155; font-size: 12px;">Responde directamente a este email para contactar a ${name}</p>
-          </div>
-        </div>
-      `,
-    });
+    if (!res.ok) {
+      const err = await res.json();
+      console.error('Telegram error:', err);
+      return NextResponse.json(
+        { error: 'Error al enviar el mensaje. Intenta de nuevo.' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
