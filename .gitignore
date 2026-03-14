@@ -6,6 +6,9 @@ portfolio/.env.local
 # Build outputs
 portfolio/out/
 
+# Next.js type generation
+.next/
+
 # Misc
 .DS_Store
 *.log

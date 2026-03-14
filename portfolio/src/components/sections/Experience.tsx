@@ -1,30 +1,32 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Briefcase, Calendar } from 'lucide-react';
 import { staggerContainer, staggerItem, fadeInUp, viewportConfig } from '@/lib/animations';
 import { experience } from '@/lib/data';
 
 export default function Experience() {
   return (
     <section id="experience" className="py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-4xl mx-auto">
+
         {/* Header */}
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
-          className="text-center mb-16"
+          className="mb-14"
         >
-          <span
-            className="text-sm font-semibold uppercase tracking-widest"
-            style={{ color: '#3B82F6' }}
-          >
+          <span className="text-sm font-semibold uppercase tracking-widest" style={{ color: '#3B82F6' }}>
             Experiencia
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold mt-2" style={{ color: '#F1F5F9' }}>
             Trayectoria profesional
           </h2>
+          <p className="mt-2" style={{ color: '#64748B' }}>
+            Proyectos reales, impacto medible.
+          </p>
         </motion.div>
 
         {/* Timeline */}
@@ -37,68 +39,102 @@ export default function Experience() {
         >
           {/* Vertical line */}
           <div
-            className="absolute left-4 top-0 bottom-0 w-0.5"
-            style={{ background: '#1E293B' }}
+            className="absolute left-[19px] top-2 bottom-2 w-px"
+            style={{ background: 'linear-gradient(to bottom, #3B82F6, rgba(59,130,246,0.1))' }}
           />
 
-          <div className="space-y-10">
-            {experience.map((item) => (
+          <div className="space-y-8">
+            {experience.map((item, idx) => (
               <motion.div
                 key={item.id}
                 variants={staggerItem}
-                className="relative pl-12"
+                className="relative pl-14"
               >
                 {/* Dot */}
                 <div
-                  className="absolute left-3 top-1 w-3 h-3 rounded-full -translate-x-1/2 border-2"
+                  className="absolute left-[11px] top-3 w-4 h-4 rounded-full border-2 flex items-center justify-center"
                   style={{
-                    background: item.current ? '#3B82F6' : '#334155',
+                    background: item.current ? '#3B82F6' : '#1E293B',
                     borderColor: item.current ? '#3B82F6' : '#334155',
-                    boxShadow: item.current ? '0 0 10px rgba(59, 130, 246, 0.5)' : 'none',
-                  }}
-                />
-
-                {/* Content card */}
-                <div
-                  className="p-6 rounded-xl"
-                  style={{
-                    background: '#1E293B',
-                    border: `1px solid ${item.current ? 'rgba(59, 130, 246, 0.20)' : 'rgba(148, 163, 184, 0.10)'}`,
+                    boxShadow: item.current ? '0 0 12px rgba(59,130,246,0.6)' : 'none',
                   }}
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-1">
-                    <h3 className="font-bold text-lg" style={{ color: '#F1F5F9' }}>
-                      {item.role}
-                    </h3>
-                    <span
-                      className="text-xs font-medium px-2.5 py-1 rounded-full whitespace-nowrap"
+                  {item.current && (
+                    <div className="w-1.5 h-1.5 rounded-full bg-white" />
+                  )}
+                </div>
+
+                {/* Card */}
+                <div
+                  className="p-6 rounded-2xl transition-all duration-200"
+                  style={{
+                    background: '#1E293B',
+                    border: `1px solid ${item.current ? 'rgba(59,130,246,0.20)' : 'rgba(148,163,184,0.08)'}`,
+                  }}
+                >
+                  {/* Header */}
+                  <div className="flex flex-wrap items-start gap-3 justify-between mb-1">
+                    <div>
+                      <div className="flex items-center gap-2 mb-0.5">
+                        {item.current && (
+                          <span
+                            className="text-xs font-semibold px-2 py-0.5 rounded-full"
+                            style={{
+                              background: 'rgba(59,130,246,0.12)',
+                              color: '#60A5FA',
+                              border: '1px solid rgba(59,130,246,0.20)',
+                            }}
+                          >
+                            Actual
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="text-lg font-bold" style={{ color: '#F1F5F9' }}>
+                        {item.role}
+                      </h3>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <Briefcase size={12} style={{ color: '#3B82F6' }} />
+                        <span className="text-sm font-medium" style={{ color: '#3B82F6' }}>
+                          {item.company}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium flex-shrink-0"
                       style={{
-                        background: 'rgba(59, 130, 246, 0.10)',
-                        color: '#60A5FA',
+                        background: 'rgba(148,163,184,0.06)',
+                        border: '1px solid rgba(148,163,184,0.10)',
+                        color: '#64748B',
                       }}
                     >
+                      <Calendar size={11} />
                       {item.period}
-                    </span>
+                    </div>
                   </div>
 
-                  <p className="text-sm font-medium mb-4" style={{ color: '#3B82F6' }}>
-                    {item.company}
-                  </p>
+                  {/* Divider */}
+                  <div className="my-4 h-px" style={{ background: 'rgba(148,163,184,0.08)' }} />
 
-                  <ul className="space-y-1.5 mb-4">
+                  {/* Description bullets */}
+                  <ul className="space-y-2 mb-5">
                     {item.description.map((point, i) => (
-                      <li key={i} className="text-sm flex gap-2" style={{ color: '#94A3B8' }}>
-                        <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ background: '#3B82F6' }} />
+                      <li key={i} className="flex items-start gap-2.5 text-sm" style={{ color: '#94A3B8' }}>
+                        <span
+                          className="mt-2 w-1 h-1 rounded-full flex-shrink-0"
+                          style={{ background: '#3B82F6' }}
+                        />
                         {point}
                       </li>
                     ))}
                   </ul>
 
-                  <div className="flex flex-wrap gap-2">
+                  {/* Tech pills */}
+                  <div className="flex flex-wrap gap-1.5">
                     {item.tech.map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-0.5 rounded text-xs"
+                        className="px-2 py-0.5 rounded-md text-xs"
                         style={{ background: '#334155', color: '#94A3B8' }}
                       >
                         {tech}

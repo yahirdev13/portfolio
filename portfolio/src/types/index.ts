@@ -1,13 +1,21 @@
+export interface ProjectMetric {
+  label: string;
+  value: string;
+}
+
 export interface Project {
   id: string;
   title: string;
   description: string;
   longDescription?: string;
+  highlights?: string[];
   tech: string[];
+  category?: string;
   status: 'completed' | 'in-progress' | 'planned';
   github?: string;
   live?: string;
   featured?: boolean;
+  metrics?: ProjectMetric[];
 }
 
 export interface Skill {
@@ -48,4 +56,15 @@ export interface PersonalInfo {
   linkedin: string;
   location: string;
   available: boolean;
+}
+
+export interface Service {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface Stat {
+  value: string;
+  label: string;
 }

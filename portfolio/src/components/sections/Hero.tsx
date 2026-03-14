@@ -1,122 +1,163 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowDown, MapPin, Zap } from 'lucide-react';
 import { heroEntrance } from '@/lib/animations';
 import { personalInfo } from '@/lib/data';
+
+const techStack = [
+  'Next.js', 'TypeScript', 'Node.js', 'React',
+  'PostgreSQL', 'MongoDB', 'Docker', 'Tailwind',
+];
 
 export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.08) 0%, #0F172A 60%)' }}
+      className="noise-bg relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background grid decoration */}
+      {/* Background gradient */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0"
         style={{
-          backgroundImage:
-            'linear-gradient(rgba(148,163,184,1) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,1) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
+          background: 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59,130,246,0.15) 0%, transparent 70%), #0F172A',
         }}
       />
 
-      {/* Glow orb */}
+      {/* Grid lines */}
       <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full opacity-10 blur-3xl pointer-events-none"
-        style={{ background: '#3B82F6' }}
+        className="absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(148,163,184,1) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,1) 1px, transparent 1px)',
+          backgroundSize: '72px 72px',
+        }}
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Badge */}
+      {/* Glow orbs */}
+      <div
+        className="absolute top-1/4 right-1/4 w-72 h-72 rounded-full opacity-[0.07] blur-3xl pointer-events-none"
+        style={{ background: '#3B82F6' }}
+      />
+      <div
+        className="absolute bottom-1/3 left-1/4 w-56 h-56 rounded-full opacity-[0.05] blur-3xl pointer-events-none"
+        style={{ background: '#60A5FA' }}
+      />
+
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+
+        {/* Top badges row */}
         <motion.div
-          custom={0.1}
+          custom={0.05}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-6"
-          style={{
-            background: 'rgba(59, 130, 246, 0.10)',
-            border: '1px solid rgba(59, 130, 246, 0.30)',
-            color: '#60A5FA',
-          }}
+          className="flex items-center justify-center gap-3 flex-wrap mb-8"
         >
           <span
-            className="w-2 h-2 rounded-full animate-pulse"
-            style={{ background: '#34D399' }}
-          />
-          Disponible para proyectos
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
+            style={{
+              background: 'rgba(52, 211, 153, 0.08)',
+              border: '1px solid rgba(52, 211, 153, 0.25)',
+              color: '#34D399',
+            }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Disponible para proyectos
+          </span>
+          <span
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
+            style={{
+              background: 'rgba(148, 163, 184, 0.06)',
+              border: '1px solid rgba(148, 163, 184, 0.12)',
+              color: '#94A3B8',
+            }}
+          >
+            <MapPin size={11} />
+            México
+          </span>
+          <span
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
+            style={{
+              background: 'rgba(59, 130, 246, 0.08)',
+              border: '1px solid rgba(59, 130, 246, 0.20)',
+              color: '#60A5FA',
+            }}
+          >
+            <Zap size={11} />
+            Freelancer
+          </span>
         </motion.div>
 
         {/* Name */}
         <motion.h1
-          custom={0.2}
+          custom={0.15}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
-          className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-4"
+          className="text-5xl sm:text-6xl lg:text-[80px] font-bold tracking-tight leading-none mb-4"
         >
-          <span style={{ color: '#F1F5F9' }}>Hola, soy </span>
-          <span className="gradient-text">{personalInfo.name}</span>
+          <span style={{ color: '#F1F5F9' }}>Yahir </span>
+          <span className="gradient-text">Alberto</span>
         </motion.h1>
 
         {/* Role */}
-        <motion.h2
-          custom={0.3}
+        <motion.div
+          custom={0.25}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
-          className="text-xl sm:text-2xl font-medium mb-4"
-          style={{ color: '#94A3B8' }}
+          className="flex items-center justify-center gap-3 mb-5"
         >
-          {personalInfo.role}
-        </motion.h2>
+          <div className="h-px w-12 opacity-30" style={{ background: '#3B82F6' }} />
+          <span className="text-lg sm:text-xl font-medium tracking-wide" style={{ color: '#94A3B8' }}>
+            Full-Stack Developer
+          </span>
+          <div className="h-px w-12 opacity-30" style={{ background: '#3B82F6' }} />
+        </motion.div>
 
         {/* Tagline */}
         <motion.p
-          custom={0.4}
+          custom={0.35}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
-          className="text-lg max-w-xl mx-auto mb-10"
+          className="text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
           style={{ color: '#64748B' }}
         >
-          {personalInfo.tagline}
+          Construyo plataformas web completas, automatizo procesos empresariales y
+          diseño arquitecturas que escalan — de la idea al deploy.
         </motion.p>
 
         {/* CTAs */}
         <motion.div
-          custom={0.5}
+          custom={0.45}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12"
         >
           <a
             href="#projects"
-            className="px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5"
+            className="group relative px-7 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 overflow-hidden glow-pulse"
             style={{
               background: 'linear-gradient(135deg, #3B82F6, #2563EB)',
               color: '#F1F5F9',
-              boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)',
             }}
           >
-            Ver proyectos
+            <span className="relative z-10 flex items-center gap-2">
+              Ver proyectos
+              <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
+            </span>
           </a>
           <a
             href="#contact"
-            className="px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
+            className="px-7 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
             style={{
-              border: '1px solid rgba(148, 163, 184, 0.20)',
+              border: '1px solid rgba(148, 163, 184, 0.15)',
               color: '#F1F5F9',
-              background: 'transparent',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#3B82F6';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(148, 163, 184, 0.20)';
+              background: 'rgba(30, 41, 59, 0.5)',
             }}
           >
             Hablemos
@@ -125,11 +166,11 @@ export default function Hero() {
 
         {/* Social links */}
         <motion.div
-          custom={0.6}
+          custom={0.55}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
-          className="flex items-center justify-center gap-4"
+          className="flex items-center justify-center gap-3 mb-16"
         >
           {[
             { href: personalInfo.github, Icon: Github, label: 'GitHub' },
@@ -142,40 +183,69 @@ export default function Hero() {
               target={label !== 'Email' ? '_blank' : undefined}
               rel={label !== 'Email' ? 'noopener noreferrer' : undefined}
               aria-label={label}
-              className="p-2.5 rounded-lg transition-all duration-200"
+              className="p-2.5 rounded-xl transition-all duration-200 group"
               style={{
-                background: 'rgba(30, 41, 59, 0.80)',
-                border: '1px solid rgba(148, 163, 184, 0.10)',
-                color: '#64748B',
+                background: 'rgba(30, 41, 59, 0.60)',
+                border: '1px solid rgba(148, 163, 184, 0.08)',
+                color: '#475569',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.color = '#3B82F6';
-                e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.40)';
+                e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.35)';
+                e.currentTarget.style.background = 'rgba(59, 130, 246, 0.08)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.color = '#64748B';
-                e.currentTarget.style.borderColor = 'rgba(148, 163, 184, 0.10)';
+                e.currentTarget.style.color = '#475569';
+                e.currentTarget.style.borderColor = 'rgba(148, 163, 184, 0.08)';
+                e.currentTarget.style.background = 'rgba(30, 41, 59, 0.60)';
               }}
             >
-              <Icon size={20} />
+              <Icon size={18} />
             </a>
           ))}
         </motion.div>
 
-        {/* Scroll indicator */}
+        {/* Tech stack row */}
         <motion.div
-          custom={0.7}
+          custom={0.65}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
+          <p className="text-xs uppercase tracking-widest font-medium mb-3" style={{ color: '#334155' }}>
+            Stack principal
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {techStack.map((tech) => (
+              <span
+                key={tech}
+                className="px-3 py-1 rounded-lg text-xs font-medium"
+                style={{
+                  background: 'rgba(30, 41, 59, 0.70)',
+                  border: '1px solid rgba(148, 163, 184, 0.08)',
+                  color: '#64748B',
+                }}
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Scroll cue */}
+        <motion.div
+          custom={0.75}
+          variants={heroEntrance}
+          initial="hidden"
+          animate="visible"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
         >
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
+            animate={{ y: [0, 7, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
             style={{ color: '#334155' }}
           >
-            <ArrowDown size={20} />
+            <ArrowDown size={18} />
           </motion.div>
         </motion.div>
       </div>
