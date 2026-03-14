@@ -1,11 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Code2, Layers, Zap, Search } from 'lucide-react';
+import { Code2, Layers, Zap, Search, ShieldCheck } from 'lucide-react';
 import { slideInLeft, slideInRight, fadeInUp, staggerContainer, staggerItem, viewportConfig } from '@/lib/animations';
 import { personalInfo, services, stats } from '@/lib/data';
 
-const serviceIcons = [Layers, Code2, Zap, Search];
+const serviceIcons = [Layers, Code2, Zap, Search, ShieldCheck];
 
 export default function About() {
   return (

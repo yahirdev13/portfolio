@@ -216,13 +216,17 @@ export const services = [
     title: 'Consultoría Técnica',
     description: 'Revisión de stack, arquitectura escalable, code review y roadmap técnico.',
   },
+  {
+    icon: '🛡️',
+    title: 'Auditorías de Seguridad',
+    description: 'Revisión de vulnerabilidades en APIs, sistemas propios y aplicaciones web. Hardening, análisis de exposición y recomendaciones concretas.',
+  },
 ];
 
 export const stats = [
   { value: '12+', label: 'Proyectos en producción' },
   { value: '4+', label: 'Años de experiencia' },
   { value: '100%', label: 'Proyectos entregados' },
-  { value: '0', label: 'Proyectos abandonados' },
 ];
 
 export const socialLinks: SocialLink[] = [
