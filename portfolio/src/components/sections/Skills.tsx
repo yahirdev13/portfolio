@@ -4,108 +4,140 @@ import { motion } from 'framer-motion';
 import { staggerContainer, staggerItem, fadeInUp, viewportConfig } from '@/lib/animations';
 import { skillCategories } from '@/lib/data';
 
-const levelConfig = {
-  expert:       { label: 'Experto',      width: '95%', color: '#3B82F6' },
-  advanced:     { label: 'Avanzado',     width: '80%', color: '#60A5FA' },
-  intermediate: { label: 'Intermedio',   width: '60%', color: '#94A3B8' },
-  beginner:     { label: 'Aprendiendo',  width: '35%', color: '#475569' },
+// Category accent colors
+const categoryColors: Record<string, { accent: string; accentBg: string; accentBorder: string; dot: string }> = {
+  'Frontend':       { accent: '#60A5FA', accentBg: 'rgba(96,165,250,0.08)',   accentBorder: 'rgba(96,165,250,0.20)',  dot: '#3B82F6' },
+  'Backend':        { accent: '#34D399', accentBg: 'rgba(52,211,153,0.08)',   accentBorder: 'rgba(52,211,153,0.20)',  dot: '#10B981' },
+  'Bases de datos': { accent: '#FBBF24', accentBg: 'rgba(251,191,36,0.08)',   accentBorder: 'rgba(251,191,36,0.20)',  dot: '#F59E0B' },
+  'DevOps & Tools': { accent: '#C084FC', accentBg: 'rgba(192,132,252,0.08)', accentBorder: 'rgba(192,132,252,0.20)', dot: '#A855F7' },
+};
+
+const levelDot: Record<string, { title: string; opacity: number }> = {
+  expert:       { title: 'Experto',      opacity: 1 },
+  advanced:     { title: 'Avanzado',     opacity: 0.75 },
+  intermediate: { title: 'Intermedio',   opacity: 0.5 },
+  beginner:     { title: 'Aprendiendo',  opacity: 0.3 },
 };
 
 export default function Skills() {
   return (
     <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8">
-      <div
-        className="max-w-6xl mx-auto rounded-2xl py-16 px-8 sm:px-12"
-        style={{
-          background: '#1E293B',
-          border: '1px solid rgba(148, 163, 184, 0.08)',
-        }}
-      >
+      <div className="max-w-6xl mx-auto">
+
         {/* Header */}
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
-          className="text-center mb-14"
+          className="mb-14"
         >
           <span className="text-sm font-semibold uppercase tracking-widest" style={{ color: '#3B82F6' }}>
             Skills
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold mt-2 mb-3" style={{ color: '#F1F5F9' }}>
+          <h2 className="text-3xl sm:text-4xl font-bold mt-2 mb-2" style={{ color: '#F1F5F9' }}>
             Stack completo
           </h2>
-          <p className="text-base max-w-lg mx-auto" style={{ color: '#64748B' }}>
-            Tecnologías que uso a diario en proyectos reales — frontend, backend, datos y DevOps.
+          <p className="text-base" style={{ color: '#64748B' }}>
+            Tecnologías que aplico en proyectos reales — frontend, backend, datos y DevOps.
           </p>
         </motion.div>
 
-        {/* Grid */}
+        {/* 2×2 grid of category cards */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-5"
         >
-          {skillCategories.map((cat) => (
-            <motion.div key={cat.category} variants={staggerItem}>
-              {/* Category label */}
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-xl">{cat.icon}</span>
-                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#64748B' }}>
-                  {cat.category}
-                </span>
-              </div>
+          {skillCategories.map((cat) => {
+            const colors = categoryColors[cat.category] ?? categoryColors['Frontend'];
 
-              {/* Skills with level bars */}
-              <div className="space-y-3">
-                {cat.skills.map((skill) => {
-                  const lvl = levelConfig[skill.level ?? 'intermediate'];
-                  return (
-                    <div key={skill.name}>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-medium" style={{ color: '#F1F5F9' }}>
-                          {skill.name}
-                        </span>
-                        <span className="text-xs" style={{ color: '#475569' }}>
-                          {lvl.label}
-                        </span>
-                      </div>
-                      {/* Bar */}
+            return (
+              <motion.div
+                key={cat.category}
+                variants={staggerItem}
+                className="rounded-2xl p-6"
+                style={{
+                  background: '#1E293B',
+                  border: `1px solid ${colors.accentBorder}`,
+                }}
+              >
+                {/* Category header */}
+                <div className="flex items-center gap-3 mb-5">
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-base"
+                    style={{ background: colors.accentBg, border: `1px solid ${colors.accentBorder}` }}
+                  >
+                    {cat.icon}
+                  </div>
+                  <h3 className="font-semibold text-sm tracking-wide" style={{ color: colors.accent }}>
+                    {cat.category}
+                  </h3>
+                </div>
+
+                {/* Skill tags */}
+                <div className="flex flex-wrap gap-2">
+                  {cat.skills.map((skill) => {
+                    const lvl = levelDot[skill.level ?? 'intermediate'];
+                    const isCore = skill.level === 'expert' || skill.level === 'advanced';
+
+                    return (
                       <div
-                        className="h-1 rounded-full overflow-hidden"
-                        style={{ background: 'rgba(148,163,184,0.08)' }}
+                        key={skill.name}
+                        title={lvl.title}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium"
+                        style={{
+                          background: isCore ? colors.accentBg : 'rgba(30,41,59,0.8)',
+                          border: isCore
+                            ? `1px solid ${colors.accentBorder}`
+                            : '1px solid rgba(148,163,184,0.08)',
+                          color: isCore ? colors.accent : '#64748B',
+                        }}
                       >
-                        <motion.div
-                          className="h-full rounded-full"
-                          style={{ background: lvl.color, width: 0 }}
-                          whileInView={{ width: lvl.width }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+                        {/* Level dot */}
+                        <span
+                          className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                          style={{
+                            background: colors.dot,
+                            opacity: lvl.opacity,
+                          }}
                         />
+                        {skill.name}
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          ))}
+                    );
+                  })}
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
-        {/* Bottom legend */}
+        {/* Legend */}
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
-          className="flex flex-wrap items-center justify-center gap-5 mt-12 pt-8 border-t"
-          style={{ borderColor: 'rgba(148,163,184,0.08)' }}
+          className="flex flex-wrap items-center justify-center gap-6 mt-10"
         >
-          {Object.entries(levelConfig).map(([key, val]) => (
-            <div key={key} className="flex items-center gap-2">
-              <div className="w-8 h-1 rounded-full" style={{ background: val.color }} />
-              <span className="text-xs" style={{ color: '#475569' }}>{val.label}</span>
+          {[
+            { label: 'Experto / Avanzado', desc: 'Uso diario en producción', filled: true },
+            { label: 'Intermedio',          desc: 'Proyectos entregados',      filled: false },
+            { label: 'Aprendiendo',         desc: 'En desarrollo activo',      filled: false, muted: true },
+          ].map(({ label, desc, filled, muted }) => (
+            <div key={label} className="flex items-center gap-2">
+              <span
+                className="w-2 h-2 rounded-full"
+                style={{
+                  background: filled ? '#3B82F6' : muted ? 'rgba(59,130,246,0.25)' : 'rgba(59,130,246,0.5)',
+                }}
+              />
+              <span className="text-xs" style={{ color: muted ? '#334155' : '#475569' }}>
+                <span style={{ color: muted ? '#334155' : '#64748B', fontWeight: 500 }}>{label}</span>
+                {' '}— {desc}
+              </span>
             </div>
           ))}
         </motion.div>

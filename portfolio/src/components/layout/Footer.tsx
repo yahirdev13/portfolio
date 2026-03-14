@@ -1,6 +1,6 @@
 'use client';
 
-import { Github, Linkedin, Mail, Heart } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 import { personalInfo } from '@/lib/data';
 
 export default function Footer() {
@@ -28,10 +28,8 @@ export default function Footer() {
           </div>
 
           {/* Copyright */}
-          <p className="text-xs flex items-center gap-1.5" style={{ color: '#334155' }}>
-            © {year} Hecho con
-            <Heart size={11} style={{ color: '#3B82F6', display: 'inline' }} />
-            usando Next.js & Framer Motion
+          <p className="text-xs" style={{ color: '#334155' }}>
+            © {year} Yahir Alberto — All rights reserved.
           </p>
 
           {/* Social */}

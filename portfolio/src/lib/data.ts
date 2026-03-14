@@ -173,10 +173,11 @@ export const experience: ExperienceItem[] = [
     period: 'Diciembre 2024 — Presente',
     current: true,
     description: [
-      'Implementé soluciones modulares en Odoo.sh y desarrollos personalizados para múltiples clientes, estandarizando procesos y acelerando deploys.',
-      'Desarrollé SageConnect: sistema de automatización que sincroniza SAGE 300 con el Portal de Proveedores (Focaltec), eliminando reconciliación manual de CFDIs y órdenes de compra.',
-      'Personalicé Odoo (SaaS/Odoo.sh) para varios clientes cubriendo módulos de Ventas, Contabilidad, Inventario, CRM y Proyectos con integraciones que redujeron tiempos operativos en 30%.',
-      'Desarrollé cotizador interno con lógica dinámica de precios y generación automática de presupuestos, reduciendo tiempo de respuesta a solicitudes comerciales.',
+      '15+ desarrollos a medida para clientes de giros como manufactura, distribución, servicios profesionales, retail, construcción, agropecuario, logística y salud.',
+      'Desarrollé SageConnect: automatización SAGE 300 ↔ Focaltec que eliminó la reconciliación manual de CFDIs y órdenes de compra (95% reducción de trabajo operativo).',
+      'Personalicé Odoo (SaaS/Odoo.sh) cubriendo módulos de Ventas, Contabilidad, Inventario, CRM y Proyectos con integraciones que redujeron tiempos operativos hasta 30% por cliente.',
+      'Implementé cotizador interno con lógica dinámica de precios multi-moneda y generación automática de presupuestos en PDF, reduciendo tiempos de respuesta comercial.',
+      'Estandaricé procesos de deploy en Odoo.sh para onboarding de nuevos clientes, reduciendo tiempo de implementación de semanas a días.',
     ],
     tech: ['Node.js', 'MSSQL', 'Odoo', 'Python', 'REST APIs', 'PM2', 'Windows Server'],
   },
@@ -218,8 +219,8 @@ export const services = [
 ];
 
 export const stats = [
-  { value: '4+', label: 'Proyectos en producción' },
-  { value: '2+', label: 'Años de experiencia' },
+  { value: '12+', label: 'Proyectos en producción' },
+  { value: '4+', label: 'Años de experiencia' },
   { value: '100%', label: 'Proyectos entregados' },
   { value: '0', label: 'Proyectos abandonados' },
 ];
