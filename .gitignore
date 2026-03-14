@@ -1,0 +1,11 @@
+# Dependencies
+portfolio/node_modules/
+portfolio/.next/
+portfolio/.env.local
+
+# Build outputs
+portfolio/out/
+
+# Misc
+.DS_Store
+*.log
