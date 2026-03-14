@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { staggerContainer, fadeInUp, viewportConfig } from '@/lib/animations';
 
-// Tech logo slug from simpleicons.org + brand hex color
 const techGroups = [
   {
     label: 'Frontend',
@@ -11,14 +10,14 @@ const techGroups = [
     bg: 'rgba(96,165,250,0.06)',
     border: 'rgba(96,165,250,0.15)',
     techs: [
-      { name: 'TypeScript',    slug: 'typescript',      hex: '3178C6' },
-      { name: 'React',         slug: 'react',           hex: '61DAFB' },
-      { name: 'Next.js',       slug: 'nextdotjs',       hex: 'ffffff' },
-      { name: 'Vue.js',        slug: 'vuedotjs',        hex: '4FC08D' },
-      { name: 'Tailwind CSS',  slug: 'tailwindcss',     hex: '06B6D4' },
-      { name: 'Framer Motion', slug: 'framer',          hex: '0055FF' },
-      { name: 'Material UI',   slug: 'mui',             hex: '007FFF' },
-      { name: 'Figma',         slug: 'figma',           hex: 'F24E1E' },
+      { name: 'TypeScript',    slug: 'typescript'         },
+      { name: 'React',         slug: 'react'              },
+      { name: 'Next.js',       slug: 'nextdotjs'          },
+      { name: 'Vue.js',        slug: 'vuedotjs'           },
+      { name: 'Tailwind CSS',  slug: 'tailwindcss'        },
+      { name: 'Framer Motion', slug: 'framer'             },
+      { name: 'Material UI',   slug: 'mui'                },
+      { name: 'Figma',         slug: 'figma'              },
     ],
   },
   {
@@ -27,13 +26,13 @@ const techGroups = [
     bg: 'rgba(52,211,153,0.06)',
     border: 'rgba(52,211,153,0.15)',
     techs: [
-      { name: 'Node.js',       slug: 'nodedotjs',       hex: '5FA04E' },
-      { name: 'Express',       slug: 'express',         hex: 'ffffff' },
-      { name: 'Fastify',       slug: 'fastify',         hex: 'ffffff' },
-      { name: 'Spring Boot',   slug: 'springboot',      hex: '6DB33F' },
-      { name: 'Python',        slug: 'python',          hex: '3776AB' },
-      { name: 'GraphQL',       slug: 'graphql',         hex: 'E10098' },
-      { name: 'Nodemailer',    slug: 'nodemailer',      hex: '22B573' },
+      { name: 'Node.js',       slug: 'nodedotjs'          },
+      { name: 'Express',       slug: 'express'            },
+      { name: 'Fastify',       slug: 'fastify'            },
+      { name: 'Spring Boot',   slug: 'springboot'         },
+      { name: 'Python',        slug: 'python'             },
+      { name: 'GraphQL',       slug: 'graphql'            },
+      { name: 'Stripe',        slug: 'stripe'             },
     ],
   },
   {
@@ -42,12 +41,12 @@ const techGroups = [
     bg: 'rgba(251,191,36,0.06)',
     border: 'rgba(251,191,36,0.15)',
     techs: [
-      { name: 'MongoDB',       slug: 'mongodb',         hex: '47A248' },
-      { name: 'PostgreSQL',    slug: 'postgresql',      hex: '4169E1' },
-      { name: 'MySQL',         slug: 'mysql',           hex: '4479A1' },
-      { name: 'SQL Server',    slug: 'microsoftsqlserver', hex: 'CC2927' },
-      { name: 'Firebase',      slug: 'firebase',        hex: 'DD2C00' },
-      { name: 'Redis',         slug: 'redis',           hex: 'FF4438' },
+      { name: 'MongoDB',       slug: 'mongodb'            },
+      { name: 'PostgreSQL',    slug: 'postgresql'         },
+      { name: 'MySQL',         slug: 'mysql'              },
+      { name: 'SQL Server',    slug: 'microsoftsqlserver', icon: 'https://cdn.simpleicons.org/microsoftsqlserver/CC2927' },
+      { name: 'Firebase',      slug: 'firebase'           },
+      { name: 'Redis',         slug: 'redis'              },
     ],
   },
   {
@@ -56,14 +55,14 @@ const techGroups = [
     bg: 'rgba(192,132,252,0.06)',
     border: 'rgba(192,132,252,0.15)',
     techs: [
-      { name: 'Git',           slug: 'git',             hex: 'F05032' },
-      { name: 'GitHub',        slug: 'github',          hex: 'ffffff' },
-      { name: 'Docker',        slug: 'docker',          hex: '2496ED' },
-      { name: 'Vercel',        slug: 'vercel',          hex: 'ffffff' },
-      { name: 'Linux',         slug: 'linux',           hex: 'FCC624' },
-      { name: 'Postman',       slug: 'postman',         hex: 'FF6C37' },
-      { name: 'PM2',           slug: 'pm2',             hex: '2B037A' },
-      { name: 'AWS',           slug: 'amazonwebservices', hex: 'FF9900' },
+      { name: 'Git',           slug: 'git'                },
+      { name: 'GitHub',        slug: 'github'             },
+      { name: 'Docker',        slug: 'docker'             },
+      { name: 'Vercel',        slug: 'vercel'             },
+      { name: 'Linux',         slug: 'linux'              },
+      { name: 'Postman',       slug: 'postman'            },
+      { name: 'PM2',           slug: 'pm2'                },
+      { name: 'AWS',           slug: 'amazonaws',         icon: 'https://cdn.simpleicons.org/amazonaws/FF9900' },
     ],
   },
 ];
@@ -107,7 +106,7 @@ export default function Skills() {
                 hidden: { opacity: 0, y: 24 },
                 visible: {
                   opacity: 1, y: 0,
-                  transition: { delay: gi * 0.1, duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+                  transition: { delay: gi * 0.1, duration: 0.5, ease: [0.4, 0, 0.2, 1] as [number,number,number,number] },
                 },
               }}
             >
@@ -116,29 +115,22 @@ export default function Skills() {
                 <div className="h-px flex-1" style={{ background: 'rgba(148,163,184,0.08)' }} />
                 <span
                   className="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full"
-                  style={{
-                    color: group.color,
-                    background: group.bg,
-                    border: `1px solid ${group.border}`,
-                  }}
+                  style={{ color: group.color, background: group.bg, border: `1px solid ${group.border}` }}
                 >
                   {group.label}
                 </span>
                 <div className="h-px flex-1" style={{ background: 'rgba(148,163,184,0.08)' }} />
               </div>
 
-              {/* Tech cards grid */}
+              {/* Tech cards */}
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
                 {group.techs.map((tech) => (
                   <motion.div
                     key={tech.name}
-                    whileHover={{ y: -4, scale: 1.03 }}
-                    transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+                    whileHover={{ y: -4, scale: 1.04 }}
+                    transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] as [number,number,number,number] }}
                     className="flex flex-col items-center gap-2 p-3 rounded-xl cursor-default"
-                    style={{
-                      background: '#1E293B',
-                      border: '1px solid rgba(148,163,184,0.08)',
-                    }}
+                    style={{ background: '#1E293B', border: '1px solid rgba(148,163,184,0.08)' }}
                     onMouseEnter={(e) => {
                       (e.currentTarget as HTMLElement).style.borderColor = group.border;
                       (e.currentTarget as HTMLElement).style.background = group.bg;
@@ -148,11 +140,10 @@ export default function Skills() {
                       (e.currentTarget as HTMLElement).style.background = '#1E293B';
                     }}
                   >
-                    {/* Logo */}
                     <div className="w-7 h-7 flex items-center justify-center">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={`https://cdn.simpleicons.org/${tech.slug}/${tech.hex}`}
+                        src={tech.icon ?? `https://cdn.simpleicons.org/${tech.slug}`}
                         alt={tech.name}
                         width={28}
                         height={28}
@@ -160,15 +151,9 @@ export default function Skills() {
                         loading="lazy"
                       />
                     </div>
-                    {/* Name */}
                     <span
-                      className="text-center leading-tight"
-                      style={{
-                        color: '#94A3B8',
-                        fontSize: '0.65rem',
-                        fontWeight: 500,
-                        lineHeight: 1.2,
-                      }}
+                      className="text-center"
+                      style={{ color: '#94A3B8', fontSize: '0.65rem', fontWeight: 500, lineHeight: 1.2 }}
                     >
                       {tech.name}
                     </span>
