@@ -44,7 +44,7 @@ const techGroups = [
       { name: 'MongoDB',       slug: 'mongodb'            },
       { name: 'PostgreSQL',    slug: 'postgresql'         },
       { name: 'MySQL',         slug: 'mysql'              },
-      { name: 'SQL Server',    slug: 'microsoftsqlserver', icon: 'https://cdn.simpleicons.org/microsoftsqlserver/CC2927' },
+      { name: 'SQL Server',    slug: 'microsoftsqlserver' },
       { name: 'Firebase',      slug: 'firebase'           },
       { name: 'Redis',         slug: 'redis'              },
     ],
@@ -62,7 +62,7 @@ const techGroups = [
       { name: 'Linux',         slug: 'linux'              },
       { name: 'Postman',       slug: 'postman'            },
       { name: 'PM2',           slug: 'pm2'                },
-      { name: 'AWS',           slug: 'amazonaws',         icon: 'https://cdn.simpleicons.org/amazonaws/FF9900' },
+      { name: 'AWS',           slug: 'amazonwebservices'  },
     ],
   },
 ];
