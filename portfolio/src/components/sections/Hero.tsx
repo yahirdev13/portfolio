@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowDown, MapPin, Zap } from 'lucide-react';
 import { heroEntrance } from '@/lib/animations';
 import { personalInfo } from '@/lib/data';
@@ -11,7 +11,23 @@ const techStack = [
   'PostgreSQL', 'MongoDB', 'Docker', 'Tailwind',
 ];
 
+const specialties = [
+  'Full-Stack Developer',
+  'ERP Automation Specialist',
+  'SaaS Builder',
+  'Integrations Engineer',
+];
+
 export default function Hero() {
+  const [specialtyIndex, setSpecialtyIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSpecialtyIndex((i) => (i + 1) % specialties.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section
       id="home"
@@ -102,18 +118,30 @@ export default function Hero() {
           <span className="gradient-text">Alberto</span>
         </motion.h1>
 
-        {/* Role */}
+        {/* Rotating specialty */}
         <motion.div
           custom={0.25}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
-          className="flex items-center justify-center gap-3 mb-5"
+          className="flex items-center justify-center gap-3 mb-5 h-8"
         >
           <div className="h-px w-12 opacity-30" style={{ background: '#3B82F6' }} />
-          <span className="text-lg sm:text-xl font-medium tracking-wide" style={{ color: '#94A3B8' }}>
-            Full-Stack Developer
-          </span>
+          <div className="relative overflow-hidden h-7 flex items-center justify-center" style={{ minWidth: '260px' }}>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={specialtyIndex}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -14 }}
+                transition={{ duration: 0.35, ease: 'easeInOut' }}
+                className="absolute text-lg sm:text-xl font-medium tracking-wide whitespace-nowrap"
+                style={{ color: '#94A3B8' }}
+              >
+                {specialties[specialtyIndex]}
+              </motion.span>
+            </AnimatePresence>
+          </div>
           <div className="h-px w-12 opacity-30" style={{ background: '#3B82F6' }} />
         </motion.div>
 
@@ -183,7 +211,7 @@ export default function Hero() {
               target={label !== 'Email' ? '_blank' : undefined}
               rel={label !== 'Email' ? 'noopener noreferrer' : undefined}
               aria-label={label}
-              className="p-2.5 rounded-xl transition-all duration-200 group"
+              className="p-2.5 rounded-xl transition-all duration-200"
               style={{
                 background: 'rgba(30, 41, 59, 0.60)',
                 border: '1px solid rgba(148, 163, 184, 0.08)',

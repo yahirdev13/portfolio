@@ -7,7 +7,7 @@ export const personalInfo: PersonalInfo = {
   tagline: 'Construyo productos digitales que resuelven problemas reales — de la idea al deploy.',
   bio: `Soy un desarrollador Full-Stack freelancer con experiencia construyendo plataformas reales usadas por clientes reales. Me especializo en Next.js, Node.js y arquitecturas que escalan.
 
-He trabajado en automatización de ERPs empresariales, plataformas SaaS multi-tenant, apps de cotización con integraciones complejas y marketplaces de vehículos nacionales.
+He trabajado en automatización de ERPs empresariales, plataformas SaaS multi-tenant, apps de cotización con integraciones complejas y plataformas de car rental con pagos en producción.
 
 No hago demos de juguete. Cada proyecto en este portafolio está en producción o en desarrollo activo.`,
   email: 'yahir.dev13@gmail.com',
@@ -19,24 +19,48 @@ No hago demos de juguete. Cada proyecto en este portafolio está en producción 
 
 export const projects: Project[] = [
   {
+    id: 'cardeal',
+    title: 'Cardeal',
+    description: 'Plataforma full-stack de reserva de autos en renta construida con Next.js 15 y React 19. Integra la API TSD en tiempo real, procesa pagos con Flap y genera PDFs de confirmación con código QR.',
+    longDescription: 'Cardeal es una plataforma completa de car rental que desarrollé integrando múltiples sistemas externos. El flujo de reserva va desde búsqueda de disponibilidad en tiempo real vía la API TSD (XML) hasta confirmación de pago, pasando por selección de seguro, extras y procesamiento con el gateway Flap — incluyendo webhooks para confirmaciones asíncronas.\n\nLa plataforma genera PDFs de confirmación y códigos QR de reserva automáticamente. Incluye autenticación con JWT y sesiones persistentes, además de un módulo de soluciones empresariales con formulario de contacto para clientes corporativos.',
+    highlights: [
+      'Flujo completo: Búsqueda → Selección → Seguro/Extras → Pago → Confirmación',
+      'Integración con API TSD (XML) para disponibilidad de autos en tiempo real',
+      'Pagos con Flap Gateway + webhooks para confirmaciones asíncronas',
+      'Generación automática de PDFs de confirmación y códigos QR de reserva',
+      'Autenticación JWT con sesiones persistentes',
+      'Módulo de soluciones empresariales con formulario de contacto corporativo',
+    ],
+    tech: ['Next.js 15', 'React 19', 'Material-UI v6', 'Framer Motion', 'MongoDB', 'JWT', 'React Hook Form', 'React-PDF', 'QRCode', 'Nodemailer', 'Flap Payment Gateway', 'TSD XML API'],
+    category: 'SaaS Platform · Car Rental',
+    status: 'completed',
+    featured: true,
+    metrics: [
+      { label: 'Flujo completo', value: 'Búsqueda → Pago' },
+      { label: 'Pagos', value: 'Flap + Webhooks' },
+      { label: 'Deploy', value: 'Vercel' },
+    ],
+  },
+  {
     id: 'sageconnect',
     title: 'SageConnect',
-    description: 'Sistema de automatización ERP que sincroniza SAGE 300 con un portal de proveedores, procesando CFDIs y eliminando la reconciliación manual.',
-    longDescription: 'Empresa manufacturera procesaba facturas manualmente entre SAGE 300 y su portal de proveedores — 4+ horas diarias de trabajo operativo. SageConnect automatiza la sincronización bidireccional: recibe CFDIs del SAT, los valida, los concilia contra órdenes de compra en SAGE 300 y actualiza el estado en el portal en tiempo real.',
+    description: 'Sistema de automatización que sincroniza bidirecionalmente SAGE 300 con el Portal de Proveedores (Focaltec), eliminando la captura manual de CFDIs, órdenes de compra y pagos.',
+    longDescription: 'SageConnect automatiza la sincronización bidireccional entre el ERP SAGE 300 y el Portal de Proveedores (portaldeproveedores.mx / Focaltec), eliminando completamente la captura manual entre ambos sistemas.\n\nGestiona el ciclo de vida completo de Órdenes de Compra — creación, actualización, cierre y cancelación — de forma sincronizada en ambas plataformas. Descarga y procesa CFDIs (facturas electrónicas fiscales mexicanas) automáticamente y los importa directo al ERP. También procesa pagos y complementos de pago.\n\nEl sistema incluye un dashboard web con visualización de logs en tiempo real y notificaciones automáticas por correo (SMTP / Gmail OAuth2). Está diseñado con arquitectura multi-tenant: cada empresa opera con credenciales independientes en paralelo, sin interferencia entre clientes.\n\nEl código se distribuye ofuscado y corre en Windows Server con PM2 y tareas programadas.',
     highlights: [
-      'Reduce 4h diarias de trabajo manual a proceso automático',
-      'Procesamiento de CFDIs con validación contra SAT',
-      'Sincronización bidireccional SAGE 300 ↔ Portal',
-      'Reportes de conciliación automáticos por proveedor',
-      'Sistema de alertas para discrepancias y errores',
+      'Sincronización bidireccional SAGE 300 ↔ Portal de Proveedores (Focaltec)',
+      'Ciclo de vida completo de Órdenes de Compra: creación, actualización, cierre, cancelación',
+      'Descarga y procesamiento automático de CFDIs con importación directa al ERP',
+      'Dashboard web con logs en tiempo real y notificaciones por correo (Gmail OAuth2)',
+      'Arquitectura multi-tenant: múltiples empresas operando en paralelo sin interferencia',
+      'Deploy en Windows Server con PM2 + código distribuido ofuscado',
     ],
-    tech: ['Node.js', 'TypeScript', 'MSSQL', 'Express', 'SAGE 300 API', 'SAT API'],
+    tech: ['Node.js', 'Express', 'MSSQL', 'Focaltec REST API', 'Nodemailer', 'Gmail OAuth2', 'log4js', 'Winston', 'PM2', 'Windows Server'],
     category: 'ERP Automation',
     status: 'completed',
     featured: true,
     metrics: [
       { label: 'Reducción trabajo manual', value: '95%' },
-      { label: 'CFDIs procesados/día', value: '200+' },
+      { label: 'Empresas en paralelo', value: 'Multi-tenant' },
       { label: 'Tiempo de sync', value: '<2 min' },
     ],
   },
@@ -49,7 +73,7 @@ export const projects: Project[] = [
       'Arquitectura multi-tenant con aislamiento de datos por empresa',
       'Sistema de booking con disponibilidad en tiempo real',
       'Pagos automáticos y suscripciones con Stripe',
-      'Dashboard analytics: ingresos, ocupación, retención',
+      'Dashboard analytics: ingresos, ocupación, retención de clientes',
       'Notificaciones push para empleados y clientes',
     ],
     tech: ['Next.js 15', 'Fastify', 'PostgreSQL', 'Stripe', 'Docker', 'TypeScript'],
@@ -63,29 +87,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'qardeal',
-    title: 'QarDeal',
-    description: 'Marketplace nacional de renta de vehículos en México con búsqueda geolocalizada, reservas en tiempo real y panel de administración completo.',
-    longDescription: 'Plataforma full-stack para conectar renters con propietarios de vehículos en México. Búsqueda por ubicación y fecha con disponibilidad en tiempo real, flujo de reserva completo, panel de admin para gestión de flota y sistema de reseñas.',
-    highlights: [
-      'Búsqueda geolocalizada por ciudad y rango de fechas',
-      'Reservas en tiempo real con verificación de disponibilidad',
-      'Panel de administración para gestión de flota',
-      'Sistema de reseñas y verificación de usuarios',
-      'Integración de pagos y gestión de contratos digitales',
-    ],
-    tech: ['Next.js', 'TypeScript', 'MongoDB', 'Node.js', 'Tailwind CSS', 'JWT'],
-    category: 'Marketplace',
-    status: 'completed',
-    featured: true,
-    metrics: [
-      { label: 'Cobertura', value: 'Nacional MX' },
-      { label: 'Tipo', value: 'Marketplace' },
-      { label: 'Auth', value: 'JWT + OAuth' },
-    ],
-  },
-  {
-    id: 'tersoft',
+    id: 'tersoft-cotizador',
     title: 'Tersoft Cotizador',
     description: 'App web que automatiza el flujo de cotizaciones integrando Odoo ERP con Google Sheets, generando PDFs y enviando emails automáticos al equipo de ventas.',
     longDescription: 'El equipo de ventas de Tersoft generaba cotizaciones manualmente en hojas de cálculo — proceso lento y propenso a errores. El cotizador conecta Odoo (catálogo de productos y precios) con Google Sheets (historial de cotizaciones) y automatiza: generación de PDF personalizado, envío de email al cliente y registro en CRM.',
@@ -93,7 +95,7 @@ export const projects: Project[] = [
       'Integración bidireccional Odoo ERP ↔ Google Sheets',
       'Generación de PDFs dinámicos con template corporativo',
       'Envío automático de emails con adjunto al cliente',
-      'Sincronización de catálogo de productos desde Odoo',
+      'Sincronización de catálogo de productos desde Odoo en tiempo real',
       'Dashboard de cotizaciones por vendedor y período',
     ],
     tech: ['Next.js', 'Node.js', 'Odoo API', 'Google Sheets API', 'Nodemailer', 'Puppeteer'],
@@ -103,7 +105,7 @@ export const projects: Project[] = [
     metrics: [
       { label: 'Tiempo por cotización', value: '−80%' },
       { label: 'Integración ERP', value: 'Odoo' },
-      { label: 'PDFs auto', value: 'Sí' },
+      { label: 'PDFs automáticos', value: 'Sí' },
     ],
   },
 ];
@@ -155,7 +157,7 @@ export const skillCategories: SkillCategory[] = [
       { name: 'Git / GitHub', level: 'expert' },
       { name: 'Docker', level: 'intermediate' },
       { name: 'Vercel', level: 'advanced' },
-      { name: 'AWS', level: 'beginner' },
+      { name: 'PM2', level: 'intermediate' },
       { name: 'Linux', level: 'intermediate' },
       { name: 'Postman', level: 'advanced' },
       { name: 'CI/CD', level: 'intermediate' },
@@ -165,32 +167,30 @@ export const skillCategories: SkillCategory[] = [
 
 export const experience: ExperienceItem[] = [
   {
-    id: 'freelance',
-    role: 'Full-Stack Developer — Freelancer',
-    company: 'Independiente',
-    period: '2023 — Presente',
+    id: 'tersoft-dev',
+    role: 'Desarrollador Full-Stack',
+    company: 'Tersoft',
+    period: 'Diciembre 2024 — Presente',
     current: true,
     description: [
-      'Desarrollo de plataformas web completas: desde arquitectura hasta deploy en producción.',
-      'Automatización de procesos empresariales e integraciones con ERPs (SAGE 300, Odoo) que eliminan trabajo manual operativo.',
-      'Construcción de arquitecturas SaaS multi-tenant con Next.js 15, Fastify y PostgreSQL.',
-      'Consultoría técnica para startups: definición de stack, arquitectura y roadmap técnico.',
+      'Implementé soluciones modulares en Odoo.sh y desarrollos personalizados para múltiples clientes, estandarizando procesos y acelerando deploys.',
+      'Desarrollé SageConnect: sistema de automatización que sincroniza SAGE 300 con el Portal de Proveedores (Focaltec), eliminando reconciliación manual de CFDIs y órdenes de compra.',
+      'Personalicé Odoo (SaaS/Odoo.sh) para varios clientes cubriendo módulos de Ventas, Contabilidad, Inventario, CRM y Proyectos con integraciones que redujeron tiempos operativos en 30%.',
+      'Desarrollé cotizador interno con lógica dinámica de precios y generación automática de presupuestos, reduciendo tiempo de respuesta a solicitudes comerciales.',
     ],
-    tech: ['Next.js', 'Node.js', 'TypeScript', 'PostgreSQL', 'MongoDB', 'Docker'],
+    tech: ['Node.js', 'MSSQL', 'Odoo', 'Python', 'REST APIs', 'PM2', 'Windows Server'],
   },
   {
-    id: 'tersoft-dev',
+    id: 'jardines',
     role: 'Desarrollador Web',
-    company: 'Tersoft',
-    period: '2023',
+    company: 'Jardines de México',
+    period: 'Mayo 2023 — Septiembre 2023',
     current: false,
     description: [
-      'Desarrollé el módulo de cotizaciones integrado con Odoo ERP para el equipo de ventas.',
-      'Reduje el tiempo de generación de cotizaciones en ~80% mediante automatización del flujo completo.',
-      'Implementé generación de PDFs dinámicos y envío automático de correos con Nodemailer.',
-      'Sincronicé catálogo de productos desde Odoo con Google Sheets en tiempo real.',
+      'Desarrollé sistema de facturación en línea con React que centralizó la generación y gestión de facturas mediante una interfaz intuitiva.',
+      'Mejoré tiempos de procesamiento centralizando datos y generando reportes en tiempo real, incrementando productividad y reduciendo errores manuales.',
     ],
-    tech: ['Next.js', 'Node.js', 'Odoo API', 'Google Sheets API', 'Nodemailer', 'Puppeteer'],
+    tech: ['React', 'Node.js'],
   },
 ];
 
@@ -225,19 +225,7 @@ export const stats = [
 ];
 
 export const socialLinks: SocialLink[] = [
-  {
-    label: 'GitHub',
-    href: 'https://github.com/yahirdev13',
-    icon: 'github',
-  },
-  {
-    label: 'LinkedIn',
-    href: 'https://linkedin.com/in/yahirdev13',
-    icon: 'linkedin',
-  },
-  {
-    label: 'Email',
-    href: 'mailto:yahir.dev13@gmail.com',
-    icon: 'mail',
-  },
+  { label: 'GitHub', href: 'https://github.com/yahirdev13', icon: 'github' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/yahirdev13', icon: 'linkedin' },
+  { label: 'Email', href: 'mailto:yahir.dev13@gmail.com', icon: 'mail' },
 ];
