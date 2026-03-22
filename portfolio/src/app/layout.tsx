@@ -11,7 +11,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Yahir Alberto — Full-Stack Developer | ERP Automation & SaaS',
   description:
-    'Full-Stack Developer especializado en automatización ERP, integraciones complejas y plataformas SaaS. Next.js, Node.js, SAGE 300, Odoo. Freelancer disponible en México.',
+    'Full-Stack Developer freelancer en México. Construyo plataformas web, automatizo ERPs (SAGE 300, Odoo) e integro sistemas complejos — Next.js, Node.js, TypeScript.',
   keywords: [
     'Full-Stack Developer',
     'ERP Automation',
@@ -26,21 +26,21 @@ export const metadata: Metadata = {
     'Yahir Alberto',
     'Integraciones ERP',
   ],
-  authors: [{ name: 'Yahir Alberto' }],
+  authors: [{ name: 'Yahir Alberto Díaz González' }],
   creator: 'Yahir Alberto',
   openGraph: {
     type: 'website',
     locale: 'es_MX',
     title: 'Yahir Alberto — Full-Stack Developer | ERP Automation & SaaS',
     description:
-      'Full-Stack Developer especializado en automatización ERP, integraciones complejas y plataformas SaaS. Next.js, Node.js, SAGE 300, Odoo.',
+      'Full-Stack Developer freelancer en México. Construyo plataformas web, automatizo ERPs (SAGE 300, Odoo) e integro sistemas complejos — Next.js, Node.js, TypeScript.',
     siteName: 'Yahir Alberto Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Yahir Alberto — Full-Stack Developer | ERP Automation & SaaS',
     description:
-      'Full-Stack Developer especializado en automatización ERP, integraciones complejas y plataformas SaaS.',
+      'Full-Stack Developer freelancer en México. Construyo plataformas web, automatizo ERPs (SAGE 300, Odoo) e integro sistemas complejos — Next.js, Node.js, TypeScript.',
   },
   robots: {
     index: true,

@@ -3,11 +3,18 @@ export interface ProjectMetric {
   value: string;
 }
 
+export interface ProjectFullDescription {
+  problem: string;
+  solution: string;
+  impact: string;
+}
+
 export interface Project {
   id: string;
   title: string;
   description: string;
   longDescription?: string;
+  fullDescription?: ProjectFullDescription;
   highlights?: string[];
   tech: string[];
   category?: string;
@@ -16,6 +23,27 @@ export interface Project {
   live?: string;
   featured?: boolean;
   metrics?: ProjectMetric[];
+  images?: string[];
+  role?: string;
+  date?: string;
+  privateReason?: string;
+}
+
+export interface EducationTopic {
+  category: string;
+  items: string[];
+}
+
+export interface EducationItem {
+  id: string;
+  degree: string;
+  institution: string;
+  location: string;
+  period: string;
+  description?: string;
+  highlights?: string[];
+  topics?: EducationTopic[];
+  stack?: string[];
 }
 
 export interface Skill {
@@ -62,6 +90,8 @@ export interface Service {
   icon: string;
   title: string;
   description: string;
+  tags: string[];
+  proof: string;
 }
 
 export interface Stat {

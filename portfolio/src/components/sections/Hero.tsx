@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Mail, ArrowDown, MapPin, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Github, Linkedin, Mail, ArrowDown, MapPin, Zap, Download } from 'lucide-react';
 import { heroEntrance } from '@/lib/animations';
 import { personalInfo } from '@/lib/data';
 
@@ -11,22 +10,7 @@ const techStack = [
   'PostgreSQL', 'MongoDB', 'Docker', 'Tailwind',
 ];
 
-const specialties = [
-  'Full-Stack Developer',
-  'ERP Automation Specialist',
-  'SaaS Builder',
-  'Integrations Engineer',
-];
-
 export default function Hero() {
-  const [specialtyIndex, setSpecialtyIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSpecialtyIndex((i) => (i + 1) % specialties.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section
@@ -63,9 +47,34 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
 
-        {/* Top badges row */}
+        {/* Avatar */}
         <motion.div
           custom={0.05}
+          variants={heroEntrance}
+          initial="hidden"
+          animate="visible"
+          className="flex justify-center mb-6"
+        >
+          <div
+            className="flex items-center justify-center"
+            style={{
+              width: 80,
+              height: 80,
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, rgba(59,130,246,0.20), rgba(59,130,246,0.08))',
+              border: '2px solid rgba(59,130,246,0.30)',
+              color: '#60A5FA',
+              fontSize: 28,
+              fontWeight: 700,
+            }}
+          >
+            YD
+          </div>
+        </motion.div>
+
+        {/* Top badges row */}
+        <motion.div
+          custom={0.10}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
@@ -108,7 +117,7 @@ export default function Hero() {
 
         {/* Name */}
         <motion.h1
-          custom={0.15}
+          custom={0.20}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
@@ -118,36 +127,24 @@ export default function Hero() {
           <span className="gradient-text">Alberto</span>
         </motion.h1>
 
-        {/* Rotating specialty */}
+        {/* Static subtitle */}
         <motion.div
-          custom={0.25}
+          custom={0.30}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
-          className="flex items-center justify-center gap-3 mb-5 h-8"
+          className="flex items-center justify-center gap-3 mb-5"
         >
           <div className="h-px w-12 opacity-30" style={{ background: '#3B82F6' }} />
-          <div className="relative overflow-hidden h-7 flex items-center justify-center" style={{ minWidth: '260px' }}>
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={specialtyIndex}
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
-                transition={{ duration: 0.35, ease: 'easeInOut' }}
-                className="absolute text-lg sm:text-xl font-medium tracking-wide whitespace-nowrap"
-                style={{ color: '#94A3B8' }}
-              >
-                {specialties[specialtyIndex]}
-              </motion.span>
-            </AnimatePresence>
-          </div>
+          <span className="text-lg sm:text-xl font-medium tracking-wide" style={{ color: '#94A3B8' }}>
+            Full-Stack Developer — Automatización empresarial e integraciones ERP
+          </span>
           <div className="h-px w-12 opacity-30" style={{ background: '#3B82F6' }} />
         </motion.div>
 
         {/* Tagline */}
         <motion.p
-          custom={0.35}
+          custom={0.40}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
@@ -160,7 +157,7 @@ export default function Hero() {
 
         {/* CTAs */}
         <motion.div
-          custom={0.45}
+          custom={0.50}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
@@ -190,11 +187,27 @@ export default function Hero() {
           >
             Hablemos
           </a>
+          <a
+            href="/cv/Yahir_Diaz_CV.pdf"
+            download
+            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-medium text-sm"
+            style={{
+              border: '1px solid rgba(148,163,184,0.15)',
+              color: '#475569',
+              background: 'rgba(30,41,59,0.30)',
+              pointerEvents: 'none',
+              opacity: 0.5,
+            }}
+            aria-disabled="true"
+            title="CV disponible próximamente"
+          >
+            <Download size={14} /> Descargar CV
+          </a>
         </motion.div>
 
         {/* Social links */}
         <motion.div
-          custom={0.55}
+          custom={0.60}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
@@ -235,7 +248,7 @@ export default function Hero() {
 
         {/* Tech stack row */}
         <motion.div
-          custom={0.65}
+          custom={0.70}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
@@ -262,7 +275,7 @@ export default function Hero() {
 
         {/* Scroll cue */}
         <motion.div
-          custom={0.75}
+          custom={0.80}
           variants={heroEntrance}
           initial="hidden"
           animate="visible"
