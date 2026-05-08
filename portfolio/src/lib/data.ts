@@ -172,6 +172,42 @@ export const projects: Project[] = [
       { label: 'Historial', value: 'Google Sheets' },
     ],
   },
+  {
+    id: 'innova',
+    title: 'Innova',
+    description: 'Desarrollo de módulos personalizados en Odoo adaptados a las necesidades específicas del negocio. Automatización de flujos operativos complejos que antes requerían intervención manual constante — desde gestión de ventas hasta procesos contables y de inventario.',
+    tech: ['Odoo', 'Python', 'XML', 'PostgreSQL', 'OWL', 'REST APIs'],
+    category: 'Odoo · Custom Modules',
+    status: 'completed',
+    featured: false,
+    privateReason: 'Código privado por NDA — demo disponible en entrevista',
+    role: 'Desarrollador Odoo',
+    date: '2025',
+    metrics: [
+      { label: 'Errores operativos', value: '−72%' },
+      { label: 'Procesos automatizados', value: '85%' },
+      { label: 'Tiempo de facturación', value: '−60%' },
+      { label: 'Velocidad de operación', value: '3x' },
+    ],
+  },
+  {
+    id: 'belle-health',
+    title: 'Belle & Health',
+    description: 'Módulos personalizados en Odoo diseñados para soportar una operación diaria de alta carga. Automatización robusta del ciclo completo de inventarios — desde la recepción y carga masiva de productos hasta la trazabilidad y conciliación — eliminando cuellos de botella críticos en un negocio con volumen operativo intensivo.',
+    tech: ['Odoo', 'Python', 'XML', 'PostgreSQL', 'OWL'],
+    category: 'Odoo · Custom Modules',
+    status: 'completed',
+    featured: false,
+    privateReason: 'Código privado por NDA — demo disponible en entrevista',
+    role: 'Desarrollador Odoo',
+    date: '2025',
+    metrics: [
+      { label: 'Errores en inventario', value: '−80%' },
+      { label: 'Carga automatizada', value: '90%' },
+      { label: 'Tiempo por proceso', value: '−65%' },
+      { label: 'Intervención manual en flujos críticos', value: '0' },
+    ],
+  },
 ];
 
 export const skillCategories: SkillCategory[] = [
