@@ -19,7 +19,10 @@
     "ctaProjects": "View work",
     "ctaContact": "Let's talk",
     "ctaCV": "Download CV",
-    "cvTooltip": "CV available soon",
+    "cvTooltip": "Pick a CV language",
+    "cvChooseTitle": "Choose language",
+    "cvSpanish": "Spanish",
+    "cvEnglish": "English",
     "stackLabel": "Core stack",
     "scrollHint": "Scroll"
   },

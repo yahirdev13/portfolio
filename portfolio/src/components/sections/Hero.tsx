@@ -1,10 +1,16 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, ArrowDown, MapPin, Zap, Download } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Github, Linkedin, Mail, ArrowDown, MapPin, Zap, Download, ChevronDown } from 'lucide-react';
 import { heroEntrance } from '@/lib/animations';
 import { personalInfo } from '@/lib/data';
 import { useT } from '@/i18n/useT';
+
+const CV_OPTIONS = [
+  { locale: 'es' as const, file: '/cv-yahir-diaz.pdf', flag: 'ES' },
+  { locale: 'en' as const, file: '/cv-yahir-diaz-en.pdf', flag: 'EN' },
+];
 
 const techStack = [
   'Next.js', 'TypeScript', 'Node.js', 'React',
@@ -13,6 +19,26 @@ const techStack = [
 
 export default function Hero() {
   const { t } = useT();
+  const [cvOpen, setCvOpen] = useState(false);
+  const cvWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!cvOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (cvWrapperRef.current && !cvWrapperRef.current.contains(e.target as Node)) {
+        setCvOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setCvOpen(false);
+    };
+    document.addEventListener('mousedown', onClick);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onClick);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [cvOpen]);
 
   return (
     <section
@@ -188,22 +214,100 @@ export default function Hero() {
           >
             {t('hero.ctaContact')}
           </a>
-          <a
-            href="/cv/Yahir_Diaz_CV.pdf"
-            download
-            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-medium text-sm"
-            style={{
-              border: '1px solid rgba(148,163,184,0.15)',
-              color: '#475569',
-              background: 'rgba(30,41,59,0.30)',
-              pointerEvents: 'none',
-              opacity: 0.5,
-            }}
-            aria-disabled="true"
-            title={t('hero.cvTooltip')}
-          >
-            <Download size={14} /> {t('hero.ctaCV')}
-          </a>
+          <div ref={cvWrapperRef} className="relative">
+            <button
+              type="button"
+              onClick={() => setCvOpen((v) => !v)}
+              aria-haspopup="menu"
+              aria-expanded={cvOpen}
+              title={t('hero.cvTooltip')}
+              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-medium text-sm transition-all duration-200 hover:-translate-y-0.5"
+              style={{
+                border: '1px solid rgba(148,163,184,0.15)',
+                color: '#F1F5F9',
+                background: 'rgba(30,41,59,0.50)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(59,130,246,0.30)';
+                e.currentTarget.style.background = 'rgba(59,130,246,0.08)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(148,163,184,0.15)';
+                e.currentTarget.style.background = 'rgba(30,41,59,0.50)';
+              }}
+            >
+              <Download size={14} /> {t('hero.ctaCV')}
+              <ChevronDown
+                size={14}
+                style={{
+                  transition: 'transform 200ms',
+                  transform: cvOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  opacity: 0.7,
+                }}
+              />
+            </button>
+
+            <AnimatePresence>
+              {cvOpen && (
+                <motion.div
+                  key="cv-menu"
+                  role="menu"
+                  initial={{ opacity: 0, y: -6, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -6, scale: 0.96 }}
+                  transition={{ duration: 0.16, ease: [0.4, 0, 0.2, 1] }}
+                  className="absolute z-30 top-full mt-2 left-1/2 -translate-x-1/2 min-w-[180px] rounded-xl overflow-hidden"
+                  style={{
+                    background: 'rgba(15, 23, 42, 0.96)',
+                    border: '1px solid rgba(148, 163, 184, 0.12)',
+                    boxShadow: '0 20px 50px rgba(0,0,0,0.45)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
+                  }}
+                >
+                  <p
+                    className="text-xs font-semibold uppercase tracking-widest px-3 pt-3 pb-2 text-left"
+                    style={{ color: '#475569' }}
+                  >
+                    {t('hero.cvChooseTitle')}
+                  </p>
+                  <div className="h-px mx-1" style={{ background: 'rgba(148,163,184,0.08)' }} />
+                  {CV_OPTIONS.map((opt) => (
+                    <a
+                      key={opt.locale}
+                      href={opt.file}
+                      download
+                      role="menuitem"
+                      onClick={() => setCvOpen(false)}
+                      className="flex items-center justify-between gap-3 px-3 py-2.5 transition-colors duration-150"
+                      style={{ color: '#F1F5F9' }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = 'rgba(59,130,246,0.10)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'transparent';
+                      }}
+                    >
+                      <span className="flex items-center gap-2 text-sm font-medium">
+                        <Download size={13} style={{ color: '#60A5FA' }} />
+                        {opt.locale === 'es' ? t('hero.cvSpanish') : t('hero.cvEnglish')}
+                      </span>
+                      <span
+                        className="text-[0.65rem] font-bold tracking-wider px-1.5 py-0.5 rounded"
+                        style={{
+                          color: '#94A3B8',
+                          background: 'rgba(148,163,184,0.08)',
+                          border: '1px solid rgba(148,163,184,0.10)',
+                        }}
+                      >
+                        {opt.flag}
+                      </span>
+                    </a>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </motion.div>
 
         {/* Social links */}

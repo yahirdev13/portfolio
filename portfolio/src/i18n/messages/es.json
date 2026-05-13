@@ -19,7 +19,10 @@
     "ctaProjects": "Ver proyectos",
     "ctaContact": "Hablemos",
     "ctaCV": "Descargar CV",
-    "cvTooltip": "CV disponible próximamente",
+    "cvTooltip": "Elige idioma del CV",
+    "cvChooseTitle": "Elige idioma",
+    "cvSpanish": "Español",
+    "cvEnglish": "Inglés",
     "stackLabel": "Stack principal",
     "scrollHint": "Desplázate"
   },
