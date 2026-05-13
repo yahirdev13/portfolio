@@ -6,35 +6,47 @@ import { ExternalLink, Github, Clock, CheckCircle, Maximize2, Lock } from 'lucid
 import { staggerContainer, staggerItem, cardHover, fadeInUp, viewportConfig } from '@/lib/animations';
 import { projects } from '@/lib/data';
 import ProjectModal from './ProjectModal';
+import { useT } from '@/i18n/useT';
 import type { Project } from '@/types';
 
-const statusConfig = {
+type Metric = { label: string; value: string };
+
+const statusVisual = {
   completed: {
-    label: 'En producción',
-    icon: CheckCircle,
+    Icon: CheckCircle,
     color: '#34D399',
     bg: 'rgba(52, 211, 153, 0.08)',
     border: 'rgba(52, 211, 153, 0.22)',
   },
   'in-progress': {
-    label: 'En desarrollo',
-    icon: Clock,
+    Icon: Clock,
     color: '#FBBF24',
     bg: 'rgba(251, 191, 36, 0.08)',
     border: 'rgba(251, 191, 36, 0.22)',
   },
   planned: {
-    label: 'Planeado',
-    icon: Clock,
+    Icon: Clock,
     color: '#64748B',
     bg: 'rgba(100, 116, 139, 0.08)',
     border: 'rgba(100, 116, 139, 0.22)',
   },
-};
+} as const;
 
 function ProjectCard({ project, onOpenModal }: { project: Project; onOpenModal: (p: Project) => void }) {
-  const status = statusConfig[project.status];
-  const StatusIcon = status.icon;
+  const { t, tObject } = useT();
+  const visual = statusVisual[project.status];
+  const StatusIcon = visual.Icon;
+  const statusLabel = t(
+    project.status === 'completed'
+      ? 'projects.statusCompleted'
+      : project.status === 'in-progress'
+        ? 'projects.statusInProgress'
+        : 'projects.statusPlanned'
+  );
+  const title = t(`projects.items.${project.id}.title`);
+  const description = t(`projects.items.${project.id}.description`);
+  const category = t(`projects.items.${project.id}.category`);
+  const metrics = tObject<Metric[]>(`projects.items.${project.id}.metrics`) ?? [];
 
   return (
     <motion.div
@@ -48,7 +60,6 @@ function ProjectCard({ project, onOpenModal }: { project: Project; onOpenModal: 
         boxShadow: '0 4px 24px rgba(0,0,0,0.3)',
       }}
     >
-      {/* Top accent line */}
       <div
         className="h-0.5 w-full"
         style={{
@@ -62,36 +73,36 @@ function ProjectCard({ project, onOpenModal }: { project: Project; onOpenModal: 
         {/* Header */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex-1">
-            {project.category && (
+            {category && (
               <p className="text-xs font-medium uppercase tracking-wider mb-1" style={{ color: '#3B82F6' }}>
-                {project.category}
+                {category}
               </p>
             )}
             <h3 className="text-xl font-bold" style={{ color: '#F1F5F9' }}>
-              {project.title}
+              {title}
             </h3>
           </div>
 
           <div className="flex items-center gap-2 flex-shrink-0">
             <span
               className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium"
-              style={{ background: status.bg, border: `1px solid ${status.border}`, color: status.color }}
+              style={{ background: visual.bg, border: `1px solid ${visual.border}`, color: visual.color }}
             >
               <StatusIcon size={10} />
-              {status.label}
+              {statusLabel}
             </span>
           </div>
         </div>
 
         {/* Description */}
         <p className="text-sm leading-relaxed mb-4" style={{ color: '#94A3B8' }}>
-          {project.description}
+          {description}
         </p>
 
         {/* Metrics */}
-        {project.metrics && (
+        {metrics.length > 0 && (
           <div className="grid grid-cols-3 gap-px mb-4 rounded-xl overflow-hidden" style={{ border: '1px solid rgba(148,163,184,0.08)' }}>
-            {project.metrics.slice(0, 3).map((m) => (
+            {metrics.slice(0, 3).map((m) => (
               <div
                 key={m.label}
                 className="flex flex-col px-3 py-2.5"
@@ -114,16 +125,14 @@ function ProjectCard({ project, onOpenModal }: { project: Project; onOpenModal: 
             onMouseLeave={(e) => { e.currentTarget.style.color = '#64748B'; }}
           >
             <Maximize2 size={13} />
-            Ver detalles técnicos
+            {t('projects.viewDetails')}
           </button>
         </div>
 
-        {/* Spacer */}
         <div className="flex-1" />
 
         {/* Footer */}
         <div className="flex items-end justify-between gap-3 pt-4 border-t" style={{ borderColor: 'rgba(148,163,184,0.08)' }}>
-          {/* Tech pills */}
           <div className="flex flex-wrap gap-1.5">
             {project.tech.slice(0, 5).map((tech) => (
               <span
@@ -144,11 +153,10 @@ function ProjectCard({ project, onOpenModal }: { project: Project; onOpenModal: 
             )}
           </div>
 
-          {/* Links */}
           <div className="flex gap-1.5">
             {project.privateReason ? (
               <span
-                title={project.privateReason}
+                title={t(project.privateReason === 'no-nda' ? 'projects.ndaReasonNoNda' : 'projects.ndaReason')}
                 className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs font-medium"
                 style={{
                   background: 'rgba(251,191,36,0.08)',
@@ -156,7 +164,7 @@ function ProjectCard({ project, onOpenModal }: { project: Project; onOpenModal: 
                   color: '#FBBF24',
                 }}
               >
-                <Lock size={11} /> Código privado · NDA
+                <Lock size={11} /> {t('projects.ndaShort')}
               </span>
             ) : (
               <>
@@ -198,7 +206,10 @@ function ProjectCard({ project, onOpenModal }: { project: Project; onOpenModal: 
 }
 
 export default function Projects() {
+  const { t } = useT();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const completed = projects.filter((p) => p.status === 'completed').length;
+  const inProgress = projects.filter((p) => p.status === 'in-progress').length;
 
   return (
     <section id="projects" className="py-16 px-4 sm:px-6 lg:px-8">
@@ -214,13 +225,13 @@ export default function Projects() {
         >
           <div>
             <span className="text-sm font-semibold uppercase tracking-widest" style={{ color: '#3B82F6' }}>
-              Proyectos
+              {t('projects.kicker')}
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold mt-2" style={{ color: '#F1F5F9' }}>
-              Lo que he construido
+              {t('projects.title')}
             </h2>
             <p className="mt-2 text-base" style={{ color: '#64748B' }}>
-              Código real. Clientes reales. Problemas reales resueltos.
+              {t('projects.subtitle')}
             </p>
           </div>
           <div
@@ -232,7 +243,7 @@ export default function Projects() {
             }}
           >
             <CheckCircle size={14} />
-            {projects.filter(p => p.status === 'completed').length} completados · {projects.filter(p => p.status === 'in-progress').length} en curso
+            {t('projects.summaryFmt', { completed, inProgress })}
           </div>
         </motion.div>
 

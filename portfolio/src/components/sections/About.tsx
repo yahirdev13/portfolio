@@ -3,17 +3,35 @@
 import { motion } from 'framer-motion';
 import { Layers, LayoutDashboard, Plug, RefreshCw, Sparkles } from 'lucide-react';
 import { slideInLeft, slideInRight, fadeInUp, staggerContainer, staggerItem, viewportConfig } from '@/lib/animations';
-import { personalInfo, services, stats, languages } from '@/lib/data';
+import { useT } from '@/i18n/useT';
 
-const serviceIcons: Record<string, React.ComponentType<{ size?: number; style?: React.CSSProperties }>> = {
-  RefreshCw,
-  Layers,
-  Plug,
-  Sparkles,
-  LayoutDashboard,
+type StatItem = { value: string; label: string };
+type LangItem = { name: string; level: string };
+type ServiceCopy = { title: string; description: string; tags: string[]; proof: string };
+
+const SERVICE_IDS = ['erp', 'saas', 'apis', 'ai', 'webapp'] as const;
+
+const SERVICE_ICONS: Record<(typeof SERVICE_IDS)[number], React.ComponentType<{ size?: number; style?: React.CSSProperties }>> = {
+  erp: RefreshCw,
+  saas: Layers,
+  apis: Plug,
+  ai: Sparkles,
+  webapp: LayoutDashboard,
 };
 
+const STACK_TAGS = [
+  'Next.js', 'TypeScript', 'React', 'Node.js',
+  'Fastify', 'PostgreSQL', 'MongoDB', 'Docker',
+  'Tailwind CSS', 'REST APIs', 'MSSQL', 'Stripe',
+];
+
 export default function About() {
+  const { t, tArray, tObject } = useT();
+
+  const bioParagraphs = tArray('about.bio');
+  const stats = tObject<StatItem[]>('stats') ?? [];
+  const languages = tObject<LangItem[]>('about.languages') ?? [];
+
   return (
     <section id="about" className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -27,10 +45,10 @@ export default function About() {
           className="mb-16"
         >
           <span className="text-sm font-semibold uppercase tracking-widest" style={{ color: '#3B82F6' }}>
-            Sobre mí
+            {t('about.kicker')}
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold mt-2" style={{ color: '#F1F5F9' }}>
-            Builder. Freelancer. Solucionador.
+            {t('about.title')}
           </h2>
         </motion.div>
 
@@ -45,14 +63,14 @@ export default function About() {
             viewport={viewportConfig}
             className="space-y-4"
           >
-            {personalInfo.bio.split('\n\n').filter(Boolean).map((paragraph, i) => (
+            {bioParagraphs.map((paragraph, i) => (
               <p key={i} className="text-base leading-relaxed" style={{ color: '#94A3B8' }}>
-                {paragraph.trim()}
+                {paragraph}
               </p>
             ))}
 
             {/* Stats row */}
-            <div className="grid grid-cols-2 gap-3 pt-4">
+            <div className="grid grid-cols-3 gap-3 pt-4">
               {stats.map(({ value, label }) => (
                 <div
                   key={label}
@@ -78,15 +96,11 @@ export default function About() {
             viewport={viewportConfig}
           >
             <h3 className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#64748B' }}>
-              Stack principal
+              {t('about.stackLabel')}
             </h3>
 
             <div className="flex flex-wrap gap-2 mb-8">
-              {[
-                'Next.js', 'TypeScript', 'React', 'Node.js',
-                'Fastify', 'PostgreSQL', 'MongoDB', 'Docker',
-                'Tailwind CSS', 'REST APIs', 'MSSQL', 'Stripe',
-              ].map((tech) => (
+              {STACK_TAGS.map((tech) => (
                 <span
                   key={tech}
                   className="px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200"
@@ -121,11 +135,10 @@ export default function About() {
                 <span className="w-2.5 h-2.5 rounded-full mt-1 flex-shrink-0 animate-pulse" style={{ background: '#34D399' }} />
                 <div className="flex-1">
                   <p className="text-sm font-semibold mb-1" style={{ color: '#34D399' }}>
-                    Disponible para nuevos proyectos
+                    {t('about.availableTitle')}
                   </p>
                   <p className="text-xs leading-relaxed mb-3" style={{ color: '#64748B' }}>
-                    Acepto proyectos freelance de alcance definido o colaboraciones de largo plazo.
-                    Tiempo parcial y completo disponible.
+                    {t('about.availableBody')}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {languages.map((lang) => (
@@ -157,10 +170,10 @@ export default function About() {
           className="mb-6"
         >
           <h3 className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: '#64748B' }}>
-            En qué puedo ayudarte
+            {t('about.servicesKicker')}
           </h3>
           <p className="text-sm" style={{ color: '#334155' }}>
-            Especialidades con proyectos reales que lo respaldan.
+            {t('about.servicesSubtitle')}
           </p>
         </motion.div>
 
@@ -171,11 +184,13 @@ export default function About() {
           viewport={viewportConfig}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4"
         >
-          {services.map((service) => {
-            const Icon = serviceIcons[service.icon];
+          {SERVICE_IDS.map((id) => {
+            const copy = tObject<ServiceCopy>(`about.services.${id}`);
+            if (!copy) return null;
+            const Icon = SERVICE_ICONS[id];
             return (
               <motion.div
-                key={service.title}
+                key={id}
                 variants={staggerItem}
                 className="flex flex-col p-5 rounded-xl transition-all duration-200"
                 style={{
@@ -189,7 +204,6 @@ export default function About() {
                   (e.currentTarget as HTMLElement).style.borderColor = 'rgba(148, 163, 184, 0.08)';
                 }}
               >
-                {/* Icon */}
                 <div
                   className="w-8 h-8 rounded-lg flex items-center justify-center mb-3 flex-shrink-0"
                   style={{
@@ -197,20 +211,18 @@ export default function About() {
                     border: '1px solid rgba(59, 130, 246, 0.15)',
                   }}
                 >
-                  {Icon && <Icon size={15} style={{ color: '#3B82F6' }} />}
+                  <Icon size={15} style={{ color: '#3B82F6' }} />
                 </div>
 
-                {/* Title + description */}
                 <h4 className="text-sm font-semibold mb-1.5" style={{ color: '#F1F5F9' }}>
-                  {service.title}
+                  {copy.title}
                 </h4>
                 <p className="text-xs leading-relaxed flex-1" style={{ color: '#64748B' }}>
-                  {service.description}
+                  {copy.description}
                 </p>
 
-                {/* Tech tags */}
                 <div className="flex flex-wrap gap-1 mt-3">
-                  {service.tags.map((tag) => (
+                  {copy.tags.map((tag) => (
                     <span
                       key={tag}
                       className="px-1.5 py-0.5 rounded text-xs"
@@ -225,10 +237,9 @@ export default function About() {
                   ))}
                 </div>
 
-                {/* Proof line */}
                 <div className="mt-3 pt-3" style={{ borderTop: '1px solid rgba(148,163,184,0.07)' }}>
                   <span className="text-xs" style={{ color: '#334155' }}>
-                    → <span style={{ color: '#475569' }}>{service.proof}</span>
+                    → <span style={{ color: '#475569' }}>{copy.proof}</span>
                   </span>
                 </div>
               </motion.div>

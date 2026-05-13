@@ -2,10 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { staggerContainer, fadeInUp, viewportConfig } from '@/lib/animations';
+import { useT } from '@/i18n/useT';
 
 const techGroups = [
   {
-    label: 'Frontend',
+    id: 'frontend',
     color: '#60A5FA',
     bg: 'rgba(96,165,250,0.06)',
     border: 'rgba(96,165,250,0.15)',
@@ -21,7 +22,7 @@ const techGroups = [
     ],
   },
   {
-    label: 'Backend',
+    id: 'backend',
     color: '#34D399',
     bg: 'rgba(52,211,153,0.06)',
     border: 'rgba(52,211,153,0.15)',
@@ -35,7 +36,7 @@ const techGroups = [
     ],
   },
   {
-    label: 'Bases de datos',
+    id: 'databases',
     color: '#FBBF24',
     bg: 'rgba(251,191,36,0.06)',
     border: 'rgba(251,191,36,0.15)',
@@ -49,7 +50,7 @@ const techGroups = [
     ],
   },
   {
-    label: 'DevOps & Tools',
+    id: 'devops',
     color: '#C084FC',
     bg: 'rgba(192,132,252,0.06)',
     border: 'rgba(192,132,252,0.15)',
@@ -66,6 +67,7 @@ const techGroups = [
 ];
 
 export default function Skills() {
+  const { t } = useT();
   return (
     <section id="skills" className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -79,13 +81,13 @@ export default function Skills() {
           className="mb-14"
         >
           <span className="text-sm font-semibold uppercase tracking-widest" style={{ color: '#3B82F6' }}>
-            Skills
+            {t('skills.kicker')}
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold mt-2 mb-2" style={{ color: '#F1F5F9' }}>
-            Stack completo
+            {t('skills.title')}
           </h2>
           <p className="text-base" style={{ color: '#64748B' }}>
-            Tecnologías que aplico en proyectos reales — de la interfaz al servidor.
+            {t('skills.subtitle')}
           </p>
         </motion.div>
 
@@ -99,7 +101,7 @@ export default function Skills() {
         >
           {techGroups.map((group, gi) => (
             <motion.div
-              key={group.label}
+              key={group.id}
               variants={{
                 hidden: { opacity: 0, y: 24 },
                 visible: {
@@ -115,7 +117,7 @@ export default function Skills() {
                   className="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full"
                   style={{ color: group.color, background: group.bg, border: `1px solid ${group.border}` }}
                 >
-                  {group.label}
+                  {t(`skills.groups.${group.id}`)}
                 </span>
                 <div className="h-px flex-1" style={{ background: 'rgba(148,163,184,0.08)' }} />
               </div>

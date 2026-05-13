@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowDown, MapPin, Zap, Download } from 'lucide-react';
 import { heroEntrance } from '@/lib/animations';
 import { personalInfo } from '@/lib/data';
+import { useT } from '@/i18n/useT';
 
 const techStack = [
   'Next.js', 'TypeScript', 'Node.js', 'React',
@@ -11,6 +12,7 @@ const techStack = [
 ];
 
 export default function Hero() {
+  const { t } = useT();
 
   return (
     <section
@@ -89,7 +91,7 @@ export default function Hero() {
             }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Disponible para proyectos
+            {t('hero.badgeAvailable')}
           </span>
           <span
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
@@ -100,7 +102,7 @@ export default function Hero() {
             }}
           >
             <MapPin size={11} />
-            México
+            {t('hero.badgeLocation')}
           </span>
           <span
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
@@ -111,7 +113,7 @@ export default function Hero() {
             }}
           >
             <Zap size={11} />
-            Freelancer
+            {t('hero.badgeFreelancer')}
           </span>
         </motion.div>
 
@@ -137,7 +139,7 @@ export default function Hero() {
         >
           <div className="h-px w-12 opacity-30" style={{ background: '#3B82F6' }} />
           <span className="text-lg sm:text-xl font-medium tracking-wide" style={{ color: '#94A3B8' }}>
-            Full-Stack Developer — Automatización empresarial e integraciones ERP
+            {t('hero.subtitle')}
           </span>
           <div className="h-px w-12 opacity-30" style={{ background: '#3B82F6' }} />
         </motion.div>
@@ -151,8 +153,7 @@ export default function Hero() {
           className="text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
           style={{ color: '#64748B' }}
         >
-          Construyo plataformas web completas, automatizo procesos empresariales y
-          diseño arquitecturas que escalan — de la idea al deploy.
+          {t('hero.tagline')}
         </motion.p>
 
         {/* CTAs */}
@@ -172,7 +173,7 @@ export default function Hero() {
             }}
           >
             <span className="relative z-10 flex items-center gap-2">
-              Ver proyectos
+              {t('hero.ctaProjects')}
               <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
             </span>
           </a>
@@ -185,7 +186,7 @@ export default function Hero() {
               background: 'rgba(30, 41, 59, 0.5)',
             }}
           >
-            Hablemos
+            {t('hero.ctaContact')}
           </a>
           <a
             href="/cv/Yahir_Diaz_CV.pdf"
@@ -199,9 +200,9 @@ export default function Hero() {
               opacity: 0.5,
             }}
             aria-disabled="true"
-            title="CV disponible próximamente"
+            title={t('hero.cvTooltip')}
           >
-            <Download size={14} /> Descargar CV
+            <Download size={14} /> {t('hero.ctaCV')}
           </a>
         </motion.div>
 
@@ -254,7 +255,7 @@ export default function Hero() {
           animate="visible"
         >
           <p className="text-xs uppercase tracking-widest font-medium mb-3" style={{ color: '#334155' }}>
-            Stack principal
+            {t('hero.stackLabel')}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
             {techStack.map((tech) => (

@@ -1,0 +1,430 @@
+{
+  "nav": {
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "skills": "Stack",
+    "experience": "Experiencia",
+    "contact": "Contacto",
+    "cta": "Hablemos",
+    "menuToggle": "Abrir menú",
+    "menuClose": "Cerrar menú",
+    "langToggleAria": "Cambiar idioma"
+  },
+  "hero": {
+    "badgeAvailable": "Disponible para nuevos proyectos",
+    "badgeLocation": "México",
+    "badgeFreelancer": "Freelancer",
+    "subtitle": "Full-Stack Developer — Arquitectura de plataformas e integración de ERPs empresariales",
+    "tagline": "Diseño plataformas que conectan sistemas críticos de negocio — del análisis a producción, con código que el equipo de operaciones ya no tiene que tocar.",
+    "ctaProjects": "Ver proyectos",
+    "ctaContact": "Hablemos",
+    "ctaCV": "Descargar CV",
+    "cvTooltip": "CV disponible próximamente",
+    "stackLabel": "Stack principal",
+    "scrollHint": "Desplázate"
+  },
+  "about": {
+    "kicker": "Sobre mí",
+    "title": "Full-Stack Developer · Arquitectura ERP · SaaS multi-tenant",
+    "bio": [
+      "Full-Stack Developer con más de 3 años entregando producto en producción para clientes reales. Mi enfoque es la intersección entre integraciones ERP, arquitecturas SaaS multi-tenant y middleware empresarial — el terreno donde un bug se traduce en facturación rota, no en un toast rojo.",
+      "He diseñado motores de sincronización bidireccional entre SAGE 300 y portales fiscales, arquitecturas multi-tenant con aislamiento de datos por cliente, integraciones complejas de pagos y plataformas internas con IA que recortan horas-hombre semanales. Hablo con stakeholders, levanto requerimientos, defino alcance y entrego.",
+      "Mido mi trabajo en operaciones automatizadas, errores eliminados y procesos que dejan de necesitar intervención humana — no en líneas de código."
+    ],
+    "stackLabel": "Stack principal",
+    "availableTitle": "Disponible para nuevos proyectos",
+    "availableBody": "Acepto encargos freelance de alcance definido y colaboraciones a largo plazo. Tiempo parcial o completo.",
+    "languagesLabel": "Idiomas",
+    "languages": [
+      { "name": "Español", "level": "Nativo" },
+      { "name": "Inglés", "level": "Profesional" }
+    ],
+    "servicesKicker": "En qué aporto valor",
+    "servicesSubtitle": "Especialidades con casos reales en producción.",
+    "services": {
+      "erp": {
+        "title": "Integración de Middleware ERP",
+        "description": "Conecto SAGE 300 y Odoo con portales de proveedores, pasarelas fiscales y sistemas legacy. CFDIs, órdenes de compra y pagos propagados sin intervención humana.",
+        "tags": ["SAGE 300", "Odoo", "CFDI 4.0", "XML-RPC"],
+        "proof": "SageConnect · Tersoft Cotizador"
+      },
+      "saas": {
+        "title": "Arquitectura SaaS Multi-tenant",
+        "description": "Plataformas donde N empresas operan con datos aislados sobre la misma infraestructura. Stripe Webhooks, booking en tiempo real, roles y analítica desde el primer cliente.",
+        "tags": ["PostgreSQL", "Stripe", "Docker", "Next.js"],
+        "proof": "Cleany · Cardeal"
+      },
+      "apis": {
+        "title": "Integración Cross-system de APIs",
+        "description": "Orquesto sistemas que hablan lenguajes distintos — XML, REST, OAuth2, XML-RPC — en flujos transaccionales sin pérdida de atomicidad ni colisión entre webhooks.",
+        "tags": ["TSD XML", "Focaltec REST", "Gmail OAuth2", "Webhooks"],
+        "proof": "Cardeal · SageConnect · Cotizador"
+      },
+      "ai": {
+        "title": "Herramientas Internas con IA",
+        "description": "Aplicaciones que sustituyen procesos manuales repetitivos: cotizadores con Gemini AI que leen requerimientos en PDF, generan documentos y registran historial auditable.",
+        "tags": ["Gemini AI", "pdf-parse", "jsPDF", "Google Sheets"],
+        "proof": "Tersoft Cotizador"
+      },
+      "webapp": {
+        "title": "Aplicaciones Web a Medida",
+        "description": "Dashboards operativos, portales internos y sistemas de gestión diseñados sobre el proceso real del negocio — desde el discovery hasta el deploy.",
+        "tags": ["Next.js", "React", "Node.js", "Tailwind CSS"],
+        "proof": "Jardines de México · Cardeal"
+      }
+    }
+  },
+  "stats": [
+    { "value": "6+", "label": "Proyectos en producción" },
+    { "value": "3+", "label": "Años de experiencia profesional" },
+    { "value": "15+", "label": "Clientes activos en producción" }
+  ],
+  "projects": {
+    "kicker": "Trabajo seleccionado",
+    "title": "Lo que he construido en producción",
+    "subtitle": "Casos reales con stack documentado y métricas verificables.",
+    "viewDetails": "Ver caso técnico",
+    "summaryFmt": "{completed} completados · {inProgress} en curso",
+    "statusCompleted": "En producción",
+    "statusInProgress": "En desarrollo",
+    "statusPlanned": "Planeado",
+    "ndaShort": "Código privado · NDA",
+    "ndaBadge": "NDA",
+    "ndaReason": "Código privado por NDA — demo en vivo disponible bajo entrevista.",
+    "ndaReasonNoNda": "Código privado — demo en vivo disponible bajo entrevista.",
+    "stackLabel": "Stack",
+    "highlightsLabel": "Detalles técnicos",
+    "items": {
+      "cardeal": {
+        "title": "Cardeal",
+        "category": "Plataforma de Renta de Autos",
+        "role": "Desarrollador Full-Stack",
+        "description": "Plataforma end-to-end de renta de autos que convirtió una operación offline (cotizaciones por teléfono, cobros manuales, confirmaciones en papel) en un flujo de auto-servicio online. Orquesta tres integraciones externas en paralelo sobre Next.js 15 + MongoDB.",
+        "problem": "La operación de renta vivía 100% offline: disponibilidad consultada por llamada, cobros manuales y confirmaciones impresas. No existía un sistema único que conectara inventario en tiempo real, pagos y emisión de documentos.",
+        "solution": "Plataforma full-stack en Next.js 15 + MongoDB que orquesta tres integraciones simultáneas: TSD XML API para inventario en vivo (parseo con xml2js), Flap Payment Gateway con webhook asíncrono para confirmaciones, y opción de pago en mostrador. Flujo completo: búsqueda → vehículo → planes de seguro con pricing dinámico → extras (GPS, sillas, coberturas) → cálculo de IVA → pago → confirmación con PDF y QR único por reserva. Autenticación con JWT + bcryptjs y cifrado de datos sensibles con crypto-js.",
+        "impact": "El proceso que requería múltiples llamadas y papelería se completa online en minutos. El cliente recibe PDF con QR descargable de inmediato. La operación manual de reservas, cobros y documentación quedó eliminada.",
+        "highlights": [
+          "TSD XML API: disponibilidad y pricing de vehículos en vivo, parseo XML con xml2js",
+          "Flap Gateway con webhook `/api/webhook-success` para confirmación asíncrona; opción de pago en mostrador",
+          "Seguros con pricing dinámico por categoría; extras configurables (GPS, sillas, coberturas)",
+          "PDF server-side con @react-pdf/renderer; QR único por reserva con qrcode + qrcode.react",
+          "JWT + bcryptjs para autenticación; crypto-js para datos sensibles; UUIDs por reserva",
+          "Validación con React Hook Form + Yup; transaccionales con Nodemailer; entrega con webpack-obfuscator"
+        ],
+        "metrics": [
+          { "label": "Disponibilidad", "value": "TSD en vivo" },
+          { "label": "Pagos", "value": "Flap + Webhook" },
+          { "label": "Confirmación", "value": "PDF + QR" },
+          { "label": "Seguros", "value": "Precio dinámico" },
+          { "label": "Auth", "value": "JWT + bcrypt" },
+          { "label": "Deploy", "value": "Vercel" }
+        ]
+      },
+      "sageconnect": {
+        "title": "SageConnect",
+        "category": "Automatización ERP · Multi-tenant",
+        "role": "Desarrollador Full-Stack",
+        "description": "Motor de sincronización bidireccional SAGE 300 ↔ Portal de Proveedores (Focaltec) que eliminó la captura manual del ciclo completo de CFDIs, órdenes de compra, pagos y complementos. Arquitectura multi-tenant: múltiples empresas operan en paralelo con datos completamente aislados.",
+        "problem": "El equipo de compras capturaba cada CFDI, orden de compra y pago dos veces — una en SAGE 300, otra en el Portal de Proveedores. Horas diarias perdidas, errores de doble captura impactando contabilidad, y desincronizaciones que afectaban relación con proveedores y auditorías fiscales.",
+        "solution": "Motor de sincronización bidireccional SAGE 300 ↔ Focaltec que corre cada 15 minutos vía Windows Task Scheduler. Gestiona el ciclo completo de Órdenes de Compra, descarga CFDIs del portal e invoca directamente `ImportaFacturasFocaltec.exe` para importarlos al ERP, procesa pagos y complementos. Arquitectura multi-tenant real: cada empresa configura su propio juego de credenciales (TENANT_ID, API_KEY, API_SECRET, RFC) y base de datos SQL Server independiente — todo en paralelo en la misma instancia.",
+        "impact": "Cero capturas duplicadas. La sincronización de horas-hombre se convirtió en un job de 15 minutos sin intervención humana. Múltiples empresas operan en paralelo con datos aislados. Cero errores de reconciliación contable.",
+        "highlights": [
+          "Sincronización bidireccional SAGE 300 ↔ Focaltec con atomicidad garantizada",
+          "Ciclo completo de OC: creación, actualización, cierre y cancelación propagados automáticamente",
+          "Descarga de CFDIs del portal e importación al ERP invocando ImportaFacturasFocaltec.exe vía child_process",
+          "Pagos y complementos con validación de RFC y régimen fiscal (CFDI 4.0)",
+          "Multi-tenant real: arrays paralelos de credenciales y bases de datos SQL Server por empresa",
+          "Scheduler cada 15 min vía Windows Task Scheduler; AUTO_TERMINATE para exit limpio",
+          "Notificaciones Gmail OAuth2 o SMTP con listas de destinatarios por tenant",
+          "Logging estructurado log4js + Winston; dashboard de logs en tiempo real; entrega ofuscada"
+        ],
+        "metrics": [
+          { "label": "Ciclo de sync", "value": "Cada 15 min" },
+          { "label": "Capturas manuales", "value": "0" },
+          { "label": "Módulos", "value": "OC + CFDI + Pagos" },
+          { "label": "Arquitectura", "value": "Multi-tenant" },
+          { "label": "Notificaciones", "value": "OAuth2 + SMTP" },
+          { "label": "Deploy", "value": "PM2 + Scheduler" }
+        ]
+      },
+      "cleany": {
+        "title": "Cleany SaaS",
+        "category": "Plataforma SaaS",
+        "role": "Desarrollador Full-Stack",
+        "description": "SaaS multi-tenant en construcción para empresas de limpieza: aislamiento total de datos por tenant, motor de booking en tiempo real, suscripciones y pagos únicos con Stripe Webhooks, gestión de empleados y analítica operativa — stack Next.js 15 + Fastify + PostgreSQL + Docker.",
+        "problem": "Las empresas del sector operaban con WhatsApp y Excel: sin visibilidad de ingresos, sin control de ocupación, sin retención medible. Escalar significaba contratar administrativos. Una solución SaaS propia era económicamente inaccesible.",
+        "solution": "Arquitectura SaaS multi-tenant con aislamiento de datos PostgreSQL por cliente bajo la misma infraestructura Docker. Backend Fastify para alta concurrencia. Stripe Webhooks gestiona suscripciones recurrentes y pagos únicos. El motor de booking calcula disponibilidad cruzando agenda de empleados, zonas de servicio y tipo de limpieza. Dashboard analítico con métricas en tiempo real.",
+        "impact": "Arquitectura diseñada para onboarding de nuevos tenants sin coste marginal de infraestructura. Cada empresa accede a operación digital completa desde su primer día activo.",
+        "highlights": [
+          "Multi-tenant con aislamiento PostgreSQL por empresa (schema-per-tenant)",
+          "Backend Fastify: latencia baja y alta concurrencia para múltiples tenants",
+          "Stripe Webhooks: suscripciones recurrentes, pagos únicos, manejo de fallos de cobro",
+          "Booking engine: disponibilidad en tiempo real cruzando empleados, zonas y tipo de servicio",
+          "Analytics: ingresos, ocupación y retención de clientes en vivo",
+          "Asignación automática de empleados por zona y disponibilidad",
+          "Infraestructura containerizada con Docker Compose; TypeScript end-to-end"
+        ],
+        "metrics": [
+          { "label": "Aislamiento", "value": "DB por tenant" },
+          { "label": "Backend", "value": "Fastify" },
+          { "label": "Pagos", "value": "Stripe Webhooks" },
+          { "label": "Booking", "value": "Tiempo real" },
+          { "label": "Infra", "value": "Docker Compose" },
+          { "label": "Estado", "value": "En desarrollo" }
+        ]
+      },
+      "tersoft-cotizador": {
+        "title": "Tersoft Cotizador",
+        "category": "Business Tools · ERP · IA",
+        "role": "Desarrollador Full-Stack",
+        "description": "Herramienta interna que comprimió el ciclo de cotización de 45 minutos a menos de 5 integrando Odoo XML-RPC, Gemini AI, jsPDF, Google Sheets API y Nodemailer. Hoy es la pieza central del flujo comercial del equipo de ventas.",
+        "problem": "Cada cotización: abrir Odoo, copiar precios a Excel, formatear PDF manualmente, adjuntar y enviar correo. 30–45 min por vendedor, errores de precio frecuentes y sin historial centralizado.",
+        "solution": "Next.js 15 con cinco integraciones: Odoo vía odoo-xmlrpc (catálogo en tiempo real), Gemini AI para asistir redacción y leer PDFs de requerimientos (pdf-parse), jsPDF con template corporativo, Google Sheets API como historial auditable, y Nodemailer para envío con adjunto. NextAuth gestiona el equipo de ventas.",
+        "impact": "Tiempo por cotización: −88% (45 min → 5 min). Catálogo siempre actualizado desde Odoo, eliminando errores de pricing. Historial centralizado y auditable por vendedor, periodo y estatus.",
+        "highlights": [
+          "Odoo XML-RPC: catálogo y pricing en tiempo real",
+          "Gemini AI: redacción asistida y análisis de PDFs de requerimientos (pdf-parse)",
+          "jsPDF: generación cliente con template corporativo; descarga con file-saver",
+          "Google Sheets API: historial auditable filtrable por vendedor, fecha, total y estatus",
+          "Nodemailer: envío automático con PDF adjunto y copia al vendedor",
+          "NextAuth: autenticación del equipo de ventas con sesiones gestionadas"
+        ],
+        "metrics": [
+          { "label": "Tiempo por cotización", "value": "−88%" },
+          { "label": "De 45 min a", "value": "<5 min" },
+          { "label": "IA integrada", "value": "Gemini AI" },
+          { "label": "Odoo vía", "value": "XML-RPC" },
+          { "label": "PDF", "value": "jsPDF" },
+          { "label": "Historial", "value": "Google Sheets" }
+        ]
+      },
+      "innova": {
+        "title": "Innova",
+        "category": "Odoo · Módulos Personalizados",
+        "role": "Desarrollador Odoo",
+        "description": "Implementación de módulos personalizados en Odoo sobre el flujo operativo real de la empresa: ventas, contabilidad e inventario automatizados extremo a extremo con discovery de requerimientos directo con stakeholders.",
+        "metrics": [
+          { "label": "Errores operativos", "value": "−72%" },
+          { "label": "Procesos automatizados", "value": "85%" },
+          { "label": "Tiempo de facturación", "value": "−60%" },
+          { "label": "Velocidad de operación", "value": "3x" }
+        ]
+      },
+      "belle-health": {
+        "title": "Belle & Health",
+        "category": "Odoo · Módulos Personalizados",
+        "role": "Desarrollador Odoo",
+        "description": "Módulos personalizados en Odoo para operación clínica de alta carga: trazabilidad de inventarios, recepción y carga masiva, conciliación automatizada — eliminando cuellos de botella en un negocio con volumen operativo intensivo.",
+        "metrics": [
+          { "label": "Errores en inventario", "value": "−80%" },
+          { "label": "Carga automatizada", "value": "90%" },
+          { "label": "Tiempo por proceso", "value": "−65%" },
+          { "label": "Intervención manual", "value": "0" }
+        ]
+      },
+      "biomotion-dashboard": {
+        "title": "Biomotion · Dashboard Clínico",
+        "category": "HealthTech · Panel Operativo",
+        "role": "Diseñador & Front-end",
+        "description": "Panel operativo multi-rol para Clínica Integral Biomotion (Cuautla, Morelos): pacientes, doctores, agenda, consultas, expedientes, POS de farmacia, inventario y catálogo de medicamentos — unifica todo el flujo diario en un solo sistema.",
+        "problem": "La clínica operaba con herramientas separadas: cuadernos, hojas de cálculo y POS aislado. Sin KPIs consolidados, sin inventario en tiempo real, sin expediente unificado por paciente.",
+        "solution": "Dashboard con sidebar multi-sección (Operación + Farmacia) que centraliza pacientes, doctores, agenda, consultas, perfiles e historial clínico junto a un POS con inventario y medicamentos. KPIs en vivo (citas, pacientes activos, ingresos) con Chart.js. Sistema de diseño propio (Fraunces + Figtree + IBM Plex Mono) coherente con la landing pública.",
+        "impact": "Una sola interfaz para todo el flujo clínico-administrativo. El médico ve la jornada completa; farmacia opera POS e inventario sin salir del sistema. Reducción drástica de saltos entre herramientas y errores de captura.",
+        "highlights": [
+          "Multi-rol: panel general, expedientes, agenda, consultas, perfiles doctor y paciente",
+          "POS de farmacia con inventario y catálogo integrados al mismo sistema",
+          "KPIs en vivo (citas hoy, pacientes activos, ingresos) con Chart.js",
+          "Historial clínico longitudinal por paciente",
+          "Sistema de diseño propio coherente con la landing pública",
+          "Deploy en Vercel con configuración estática optimizada"
+        ],
+        "metrics": [
+          { "label": "Sistemas unificados", "value": "4 → 1" },
+          { "label": "Tiempo de captura", "value": "−65%" },
+          { "label": "Visibilidad operativa", "value": "Tiempo real" },
+          { "label": "Módulos integrados", "value": "12+" },
+          { "label": "Diseño", "value": "Sistema propio" },
+          { "label": "Deploy", "value": "Vercel" }
+        ]
+      },
+      "biomotion-landing": {
+        "title": "Biomotion · Landing",
+        "category": "HealthTech · Landing",
+        "role": "Diseñador & Front-end",
+        "description": "Sitio público de Clínica Integral Biomotion: rehabilitación, fisioterapia, consulta médica, nutrición, psicología, cosmetología y odontología en Cuautla, Morelos. Identidad editorial, CTA persistente a WhatsApp, modal de agendamiento reutilizable y endpoint PHP para reportes radiológicos.",
+        "problem": "La clínica multidisciplinaria dependía de redes sociales para captar pacientes — sin canal propio para mostrar servicios e instalaciones, ni vía formal para envío de reportes radiológicos.",
+        "solution": "Sitio multipágina (inicio, nosotros, servicios, instalaciones, contacto) con identidad editorial. CTA persistente a WhatsApp, modal de agendamiento reutilizable y endpoint PHP `reporte_radiologica.php` para envío digital desde el área clínica.",
+        "impact": "Canal directo de captación sin pasar por redes sociales. Modal unifica conversión en todas las páginas. Endpoint PHP digitaliza un flujo previamente 100% en papel.",
+        "highlights": [
+          "Sitio multipágina con SEO local en metadata",
+          "CTA persistente a WhatsApp y modal de cita reutilizable",
+          "Endpoint PHP para envío digital de reportes radiológicos",
+          "Diseño editorial coherente con el dashboard interno",
+          "Optimizado para móvil; carga ligera sin frameworks"
+        ],
+        "metrics": [
+          { "label": "Páginas", "value": "5" },
+          { "label": "Captación digital", "value": "+100%" },
+          { "label": "Tiempo de carga", "value": "<1 s" },
+          { "label": "Conversión modal", "value": "Reutilizable" },
+          { "label": "Reportes en papel", "value": "0" }
+        ]
+      },
+      "ad-fitness": {
+        "title": "A&D Fitness Center",
+        "category": "FitTech · Landing + Admin",
+        "role": "Diseñador & Front-end",
+        "description": "Plataforma completa para gimnasio en Huitzuco, Guerrero: landing pública de captación + dashboard de administración con clientes, rutinas piramidales (% RM), dietas con sistema mexicano de equivalentes, mensualidades, evaluaciones corporales y progreso longitudinal.",
+        "problem": "Operación 100% manual: rutinas piramidales en Word (% RM, calentamiento, parte principal, vuelta a la calma), planes alimenticios en Excel con el sistema mexicano de equivalentes, mensualidades en libreta y mediciones corporales sin histórico. Cada cliente nuevo empezaba desde cero.",
+        "solution": "Sistema dual: landing pública + dashboard con clientes, rutinas (biblioteca de ejercicios y método piramidal), dietas (constructor por equivalentes), evaluaciones, progreso, mensualidades, calendario y servicios personalizados. HTML/CSS/JS vanilla, multipágina, entregable como sitio estático.",
+        "impact": "El método del dueño (piramidal + equivalentes mexicanos) digitalizado y reutilizable. Cada cliente conserva histórico completo. Tiempo de generar nuevas rutinas y dietas drásticamente reducido.",
+        "highlights": [
+          "Landing pública con identidad amber/gold y CTA claros",
+          "Dashboard admin: clientes, rutinas, dietas, evaluaciones, progreso, mensualidades, calendario",
+          "Constructor de rutinas piramidales con biblioteca de ejercicios y % RM",
+          "Constructor de dietas con sistema mexicano de equivalentes en 5 tiempos de comida",
+          "Histórico de progreso: peso, IMC, % grasa, % músculo",
+          "Multipágina vanilla entregable como sitio estático sin backend obligatorio"
+        ],
+        "metrics": [
+          { "label": "Tiempo de armar rutina", "value": "−75%" },
+          { "label": "Dietas reutilizables", "value": "100%" },
+          { "label": "Pérdida de histórico", "value": "0" },
+          { "label": "Módulos admin", "value": "10+" },
+          { "label": "Método piramidal", "value": "Digitalizado" }
+        ]
+      },
+      "pegasus": {
+        "title": "Pegasus — Workshop OS",
+        "category": "ERP · Taller Automotriz",
+        "role": "Desarrollador Full-Stack",
+        "description": "ERP/CRM interno para Mantenimiento Automotriz Profesional (Huitzuco, Guerrero): órdenes de servicio con máquina de estados, folio atómico mensual, catálogos de refacciones y servicios, gestión de clientes y vehículos, generación de PDF y log de actividad inmutable. Stack Next.js 14 + Prisma + Supabase.",
+        "problem": "El taller llevaba órdenes de servicio en libreta: numeración manual propensa a saltos y duplicados, totales calculados a mano con riesgo de redondeo, catálogo de refacciones sin actualizar, sin trazabilidad de cambios y sin documento formal entregable.",
+        "solution": "Workshop OS sobre Next.js 14 (App Router) + Prisma + Supabase Auth. Máquina de estados para órdenes, folio atómico mensual `OS/AA/MM/NNN`, cálculo de totales con `Decimal` (sin punto flotante), catálogos CRUD de refacciones (margen + stock) y servicios (precio por tipo de vehículo), clientes y vehículos con soft delete, PDF con `@react-pdf/renderer`, log de actividad inmutable visible solo para ADMIN. Tests unitarios con Vitest y e2e con Playwright.",
+        "impact": "Folio atómico → cero duplicados. Cálculo en Decimal → cero errores de redondeo. PDF profesional sustituye la libreta. Log de actividad da trazabilidad completa — clave para un taller donde varios usuarios tocan la misma orden.",
+        "highlights": [
+          "Órdenes con máquina de estados y folio atómico mensual `OS/AA/MM/NNN`",
+          "Cálculo de totales en `Decimal` (decimal.js) — cero errores de redondeo",
+          "Supabase Auth con sesión 7 días y flujo `forgot password`",
+          "Catálogos CRUD: refacciones (margen + stock) y servicios (precio por vehículo)",
+          "PDF de OS con `@react-pdf/renderer` y plantilla corporativa",
+          "Log de actividad inmutable visible solo a ADMIN; soft delete",
+          "Tests unitarios (Vitest) y e2e (Playwright) cubriendo flujos críticos"
+        ],
+        "metrics": [
+          { "label": "Folios duplicados", "value": "0" },
+          { "label": "Errores de redondeo", "value": "0" },
+          { "label": "Tiempo por OS", "value": "−70%" },
+          { "label": "Trazabilidad", "value": "100%" },
+          { "label": "Tests", "value": "Unit + e2e" },
+          { "label": "Stack", "value": "Next 14 + Prisma" }
+        ]
+      }
+    }
+  },
+  "skills": {
+    "kicker": "Stack",
+    "title": "Stack técnico",
+    "subtitle": "Herramientas que aplico en producción — del cliente al servidor.",
+    "groups": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "databases": "Bases de Datos",
+      "devops": "DevOps & Tools"
+    }
+  },
+  "experience": {
+    "kicker": "Experiencia",
+    "title": "Trayectoria profesional",
+    "subtitle": "Casos reales con impacto medible.",
+    "currentBadge": "Actual",
+    "educationSeparator": "Formación",
+    "educationTopicsLabel": "Áreas del currículo",
+    "items": {
+      "tersoft-dev": {
+        "role": "Full-Stack Developer",
+        "company": "Tersoft",
+        "period": "Diciembre 2024 — Presente",
+        "description": [
+          "He desarrollado 15+ proyectos a medida para clientes en manufactura, distribución, servicios profesionales, retail, construcción, agropecuario, logística y salud — desde el discovery hasta la entrega.",
+          "Construí SageConnect: motor de automatización SAGE 300 ↔ Focaltec que eliminó la reconciliación manual de CFDIs y órdenes de compra (−95% en trabajo operativo recurrente).",
+          "Verticalicé Odoo (SaaS / Odoo.sh) sobre Ventas, Contabilidad, Inventario, CRM y Proyectos con integraciones que recortaron tiempos operativos hasta −30% por cliente.",
+          "Construí cotizador interno con pricing dinámico multi-moneda y generación automática de presupuestos en PDF, comprimiendo el ciclo comercial.",
+          "Estandaricé el pipeline de deploy en Odoo.sh para onboarding de nuevos clientes, reduciendo la implementación de semanas a días."
+        ]
+      },
+      "jardines": {
+        "role": "Web Developer",
+        "company": "Jardines de México",
+        "period": "Mayo 2023 — Septiembre 2023",
+        "description": [
+          "Construí un sistema de facturación electrónica (CFDI) sobre React que eliminó errores de facturación manual al centralizar la generación de comprobantes.",
+          "Centralicé los datos de facturación para habilitar reportes en tiempo real al equipo administrativo.",
+          "Migré flujos operativos de Excel a una interfaz web, acelerando el procesamiento del equipo contable."
+        ]
+      }
+    },
+    "education": {
+      "utez": {
+        "degree": "Ingeniería en Desarrollo y Gestión de Software",
+        "institution": "Universidad Tecnológica Emiliano Zapata (UTEZ)",
+        "location": "Morelos, México",
+        "period": "2021 — Abril 2025",
+        "description": "Programa de ingeniería orientado al desarrollo de software profesional: análisis, diseño, implementación, pruebas y despliegue de sistemas en producción.",
+        "highlights": [
+          "Formación full-stack: del algoritmo al deploy — frontend, backend, datos, DevOps y seguridad.",
+          "Proyectos integradores con metodologías ágiles (Scrum), control de versiones colaborativo y entregas iterativas.",
+          "Énfasis en arquitectura de sistemas, patrones de diseño, modelado de datos y APIs REST escalables.",
+          "Trabajo en ciberseguridad aplicada: análisis de vulnerabilidades, OWASP Top 10 y hardening — extendido por mi cuenta a análisis binario e ingeniería inversa en iOS con Ghidra."
+        ],
+        "topics": [
+          { "category": "Fundamentos", "items": ["Algoritmos y Estructuras de Datos", "POO", "Lógica de Programación", "Matemáticas Discretas", "Patrones de Diseño"] },
+          { "category": "Frontend & UI/UX", "items": ["HTML / CSS / JS", "React", "Diseño UI/UX", "Figma", "Accesibilidad Web", "Responsive Design"] },
+          { "category": "Backend & APIs", "items": ["Node.js", "Java / Spring Boot", "Python", "REST APIs", "Arquitectura de Software", "Microservicios"] },
+          { "category": "Bases de Datos", "items": ["MySQL", "SQL Server", "MongoDB", "Modelado E-R", "Administración de BD", "Optimización de Consultas"] },
+          { "category": "DevOps & Cloud", "items": ["Git / GitHub", "Linux", "Docker", "AWS (fundamentos)", "CI/CD", "Redes y Protocolos"] },
+          { "category": "Seguridad", "items": ["Ciberseguridad", "OWASP Top 10", "Análisis de Vulnerabilidades", "Criptografía", "Seguridad en APIs"] }
+        ]
+      }
+    }
+  },
+  "contact": {
+    "kicker": "Contacto",
+    "titlePart1": "¿Tienes un proyecto",
+    "titlePart2": "en mente?",
+    "subtitle": "Cuéntame el problema y el alcance — respondo en menos de 24 h.",
+    "labelName": "Nombre completo",
+    "labelEmail": "Email",
+    "labelProjectType": "Tipo de proyecto",
+    "labelMessage": "Descripción del proyecto",
+    "required": "*",
+    "placeholderName": "Tu nombre",
+    "placeholderEmail": "tu@email.com",
+    "placeholderSelect": "Selecciona…",
+    "placeholderMessage": "Qué necesitas construir, qué problema resuelve y el alcance que tienes en mente…",
+    "projectTypes": [
+      "Aplicación Web Full-Stack",
+      "Integración / Automatización ERP",
+      "Plataforma SaaS",
+      "Consultoría Técnica",
+      "Otro"
+    ],
+    "charCounterFmt": "{n}/20 caracteres mínimos",
+    "minCharsError": "La descripción debe tener al menos 20 caracteres.",
+    "sending": "Enviando…",
+    "send": "Enviar mensaje",
+    "successTitle": "¡Mensaje enviado!",
+    "successBody": "Te respondo en menos de 24 h.",
+    "sendAnother": "Enviar otro mensaje →",
+    "genericError": "Error al enviar el mensaje.",
+    "availableLabel": "Disponible ahora",
+    "availableBody": "Acepto encargos freelance de alcance definido y colaboraciones a largo plazo. Respondo en menos de 24 h.",
+    "linkEmailLabel": "Email",
+    "linkGithubLabel": "GitHub",
+    "linkLinkedinLabel": "LinkedIn"
+  },
+  "footer": {
+    "role": "Full-Stack Developer",
+    "rightsFmt": "© {year} Yahir Alberto — Todos los derechos reservados."
+  }
+}

@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, projectType, budget, message } = body;
+    const { name, email, projectType, message } = body;
 
     // Basic validation
     if (!name || !email || !message) {
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
     if (!token || !chatId) {
       if (process.env.NODE_ENV === 'development') {
-        console.log('📩 [DEV] Contact form:', { name, email, projectType, budget, message });
+        console.log('[DEV] Contact form:', { name, email, projectType, message });
         return NextResponse.json({ ok: true });
       }
       return NextResponse.json(
@@ -36,14 +36,13 @@ export async function POST(req: NextRequest) {
     console.log('[Telegram] sending to chat_id:', chatId, '| token prefix:', token.slice(0, 10));
 
     const lines = [
-      '📩 *Nuevo mensaje del portafolio*',
+      '*New message from the portfolio*',
       '',
-      `👤 Nombre: ${name}`,
-      `📧 Email: ${email}`,
-      projectType ? `🗂 Tipo: ${projectType}` : null,
-      budget ? `💰 Presupuesto: ${budget}` : null,
+      `Name: ${name}`,
+      `Email: ${email}`,
+      projectType ? `Type: ${projectType}` : null,
       '',
-      `💬 Mensaje:\n${message}`,
+      `Message:\n${message}`,
     ].filter(Boolean).join('\n');
 
     const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {

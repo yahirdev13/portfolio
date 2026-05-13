@@ -5,16 +5,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { navbarVariants } from '@/lib/animations';
 import { personalInfo } from '@/lib/data';
 import { X, Menu } from 'lucide-react';
+import { useT } from '@/i18n/useT';
+import LanguageToggle from '@/i18n/LanguageToggle';
 
-const navLinks = [
-  { href: '#about', label: 'Sobre mí', id: 'about' },
-  { href: '#projects', label: 'Proyectos', id: 'projects' },
-  { href: '#skills', label: 'Skills', id: 'skills' },
-  { href: '#experience', label: 'Experiencia', id: 'experience' },
-  { href: '#contact', label: 'Contacto', id: 'contact' },
+const NAV_LINKS = [
+  { href: '#about', id: 'about', tKey: 'nav.about' },
+  { href: '#projects', id: 'projects', tKey: 'nav.projects' },
+  { href: '#skills', id: 'skills', tKey: 'nav.skills' },
+  { href: '#experience', id: 'experience', tKey: 'nav.experience' },
+  { href: '#contact', id: 'contact', tKey: 'nav.contact' },
 ];
 
 export default function Navbar() {
+  const { t } = useT();
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrolled, setScrolled] = useState(false);
@@ -32,10 +35,9 @@ export default function Navbar() {
     setLastScrollY(currentY);
   }, [lastScrollY]);
 
-  // IntersectionObserver for active section
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
-    const sectionIds = navLinks.map((l) => l.id);
+    const sectionIds = NAV_LINKS.map((l) => l.id);
 
     sectionIds.forEach((id) => {
       const el = document.getElementById(id);
@@ -95,7 +97,7 @@ export default function Navbar() {
 
               {/* Desktop links */}
               <div className="hidden md:flex items-center gap-1">
-                {navLinks.map((link) => {
+                {NAV_LINKS.map((link) => {
                   const isActive = activeSection === link.id;
                   return (
                     <a
@@ -116,8 +118,7 @@ export default function Navbar() {
                         }
                       }}
                     >
-                      {link.label}
-                      {/* Active indicator dot */}
+                      {t(link.tKey)}
                       {isActive && (
                         <motion.span
                           layoutId="nav-active-dot"
@@ -131,8 +132,9 @@ export default function Navbar() {
                 })}
               </div>
 
-              {/* CTA */}
+              {/* Desktop right: toggle + CTA */}
               <div className="hidden md:flex items-center gap-3">
+                <LanguageToggle layoutIdSuffix="desktop" />
                 <a
                   href="#contact"
                   className="px-4 py-2 text-sm rounded-xl font-semibold transition-all duration-200 hover:opacity-90 hover:-translate-y-px"
@@ -142,22 +144,25 @@ export default function Navbar() {
                     boxShadow: '0 0 16px rgba(59,130,246,0.25)',
                   }}
                 >
-                  Hablemos
+                  {t('nav.cta')}
                 </a>
               </div>
 
-              {/* Mobile toggle */}
-              <button
-                className="md:hidden p-2 rounded-xl transition-colors duration-200"
-                style={{
-                  color: '#64748B',
-                  background: mobileOpen ? 'rgba(148,163,184,0.08)' : 'transparent',
-                }}
-                onClick={() => setMobileOpen(!mobileOpen)}
-                aria-label="Toggle menu"
-              >
-                {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-              </button>
+              {/* Mobile right: toggle + hamburger */}
+              <div className="md:hidden flex items-center gap-2">
+                <LanguageToggle size="sm" layoutIdSuffix="mobile" />
+                <button
+                  className="p-2 rounded-xl transition-colors duration-200"
+                  style={{
+                    color: '#64748B',
+                    background: mobileOpen ? 'rgba(148,163,184,0.08)' : 'transparent',
+                  }}
+                  onClick={() => setMobileOpen(!mobileOpen)}
+                  aria-label={mobileOpen ? t('nav.menuClose') : t('nav.menuToggle')}
+                >
+                  {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -175,7 +180,7 @@ export default function Navbar() {
                 }}
               >
                 <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1">
-                  {navLinks.map((link) => (
+                  {NAV_LINKS.map((link) => (
                     <a
                       key={link.href}
                       href={link.href}
@@ -189,7 +194,7 @@ export default function Navbar() {
                       {activeSection === link.id && (
                         <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#3B82F6' }} />
                       )}
-                      {link.label}
+                      {t(link.tKey)}
                     </a>
                   ))}
                   <a
@@ -198,7 +203,7 @@ export default function Navbar() {
                     className="mt-3 px-4 py-3 text-sm rounded-xl font-semibold text-center"
                     style={{ background: 'linear-gradient(135deg, #3B82F6, #2563EB)', color: '#F1F5F9' }}
                   >
-                    Hablemos
+                    {t('nav.cta')}
                   </a>
                 </div>
               </motion.div>

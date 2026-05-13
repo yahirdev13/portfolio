@@ -4,31 +4,31 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle, Clock, Lock } from 'lucide-react';
+import { useT } from '@/i18n/useT';
 import type { Project } from '@/types';
 
-const statusConfig = {
+type Metric = { label: string; value: string };
+
+const statusVisual = {
   completed: {
-    label: 'En producción',
     Icon: CheckCircle,
     color: '#34D399',
     bg: 'rgba(52, 211, 153, 0.08)',
     border: 'rgba(52, 211, 153, 0.22)',
   },
   'in-progress': {
-    label: 'En desarrollo',
     Icon: Clock,
     color: '#FBBF24',
     bg: 'rgba(251, 191, 36, 0.08)',
     border: 'rgba(251, 191, 36, 0.22)',
   },
   planned: {
-    label: 'Planeado',
     Icon: Clock,
     color: '#64748B',
     bg: 'rgba(100, 116, 139, 0.08)',
     border: 'rgba(100, 116, 139, 0.22)',
   },
-};
+} as const;
 
 const fade = (i: number) => ({
   hidden: { opacity: 0, y: 8 },
@@ -41,10 +41,12 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const { t, tArray, tObject } = useT();
   const [mounted, setMounted] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
@@ -75,8 +77,21 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
   const modal = (
     <AnimatePresence>
       {project && (() => {
-        const status = statusConfig[project.status];
-        const { Icon: StatusIcon } = status;
+        const visual = statusVisual[project.status];
+        const { Icon: StatusIcon } = visual;
+        const title = t(`projects.items.${project.id}.title`);
+        const description = t(`projects.items.${project.id}.description`);
+        const category = t(`projects.items.${project.id}.category`);
+        const role = t(`projects.items.${project.id}.role`);
+        const highlights = tArray(`projects.items.${project.id}.highlights`);
+        const metrics = tObject<Metric[]>(`projects.items.${project.id}.metrics`) ?? [];
+        const statusLabel = t(
+          project.status === 'completed'
+            ? 'projects.statusCompleted'
+            : project.status === 'in-progress'
+              ? 'projects.statusInProgress'
+              : 'projects.statusPlanned'
+        );
 
         return (
           <motion.div
@@ -105,7 +120,6 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               transition={{ type: 'spring', stiffness: 340, damping: 30 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Accent line */}
               <div
                 className="h-0.5 w-full"
                 style={{
@@ -117,11 +131,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 }}
               />
 
-              {/* Close */}
               <button
                 ref={closeButtonRef}
                 onClick={onClose}
-                aria-label="Cerrar modal"
+                aria-label="Close"
                 className="absolute top-3.5 right-3.5 z-10 p-1.5 rounded-lg transition-all duration-200"
                 style={{ color: '#64748B', background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(148,163,184,0.10)' }}
                 onMouseEnter={(e) => { e.currentTarget.style.color = '#F1F5F9'; }}
@@ -132,31 +145,31 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
               <div className="p-5 sm:p-6 space-y-4">
 
-                {/* ── Header ── */}
+                {/* Header */}
                 <motion.div variants={fade(0)} initial="hidden" animate="visible" className="pr-8">
                   <div className="flex flex-wrap items-center gap-1.5 mb-2">
-                    {project.category && (
+                    {category && (
                       <span
                         className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full"
                         style={{ background: 'rgba(59,130,246,0.1)', color: '#3B82F6', border: '1px solid rgba(59,130,246,0.2)' }}
                       >
-                        {project.category}
+                        {category}
                       </span>
                     )}
                     <span
                       className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium"
-                      style={{ background: status.bg, border: `1px solid ${status.border}`, color: status.color }}
+                      style={{ background: visual.bg, border: `1px solid ${visual.border}`, color: visual.color }}
                     >
                       <StatusIcon size={9} />
-                      {status.label}
+                      {statusLabel}
                     </span>
                     {project.privateReason && (
                       <span
-                        title={project.privateReason}
+                        title={t(project.privateReason === 'no-nda' ? 'projects.ndaReasonNoNda' : 'projects.ndaReason')}
                         className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium"
                         style={{ background: 'rgba(251,191,36,0.08)', border: '1px solid rgba(251,191,36,0.20)', color: '#FBBF24' }}
                       >
-                        <Lock size={9} /> NDA
+                        <Lock size={9} /> {t('projects.ndaBadge')}
                       </span>
                     )}
                     {project.date && (
@@ -164,24 +177,24 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     )}
                   </div>
                   <h2 id="modal-title" className="text-xl sm:text-2xl font-bold leading-tight" style={{ color: '#F1F5F9' }}>
-                    {project.title}
+                    {title}
                   </h2>
-                  {project.role && (
-                    <p className="mt-0.5 text-xs" style={{ color: '#475569' }}>{project.role}</p>
+                  {role && (
+                    <p className="mt-0.5 text-xs" style={{ color: '#475569' }}>{role}</p>
                   )}
                 </motion.div>
 
-                {/* ── Description ── */}
+                {/* Description */}
                 <motion.div variants={fade(1)} initial="hidden" animate="visible">
                   <p className="text-sm leading-relaxed" style={{ color: '#94A3B8' }}>
-                    {project.description}
+                    {description}
                   </p>
                 </motion.div>
 
-                {/* ── Tech stack — full width ── */}
+                {/* Tech stack */}
                 <motion.div variants={fade(2)} initial="hidden" animate="visible">
                   <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#334155' }}>
-                    Stack
+                    {t('projects.stackLabel')}
                   </p>
                   <div className="flex flex-wrap gap-1.5">
                     {project.tech.map((tech) => (
@@ -200,14 +213,14 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   </div>
                 </motion.div>
 
-                {/* ── Highlights — 2-col compact ── */}
-                {project.highlights && project.highlights.length > 0 && (
+                {/* Highlights */}
+                {highlights.length > 0 && (
                   <motion.div variants={fade(3)} initial="hidden" animate="visible">
                     <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#334155' }}>
-                      Detalles técnicos
+                      {t('projects.highlightsLabel')}
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
-                      {project.highlights.slice(0, 6).map((h, i) => (
+                      {highlights.slice(0, 6).map((h, i) => (
                         <div key={i} className="flex items-start gap-2">
                           <span
                             className="mt-[5px] w-1 h-1 rounded-full flex-shrink-0"
@@ -220,14 +233,14 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   </motion.div>
                 )}
 
-                {/* ── Metrics — full-width strip ── */}
-                {project.metrics && project.metrics.length > 0 && (
+                {/* Metrics */}
+                {metrics.length > 0 && (
                   <motion.div variants={fade(4)} initial="hidden" animate="visible">
                     <div
                       className="grid grid-cols-3 gap-px rounded-xl overflow-hidden"
                       style={{ background: '#1E293B', border: '1px solid rgba(148,163,184,0.08)' }}
                     >
-                      {project.metrics.map((m) => (
+                      {metrics.map((m) => (
                         <div
                           key={m.label}
                           className="px-3 py-2.5 flex flex-col"

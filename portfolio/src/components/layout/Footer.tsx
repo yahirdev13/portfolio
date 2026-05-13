@@ -2,8 +2,10 @@
 
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { personalInfo } from '@/lib/data';
+import { useT } from '@/i18n/useT';
 
 export default function Footer() {
+  const { t } = useT();
   const year = new Date().getFullYear();
 
   return (
@@ -23,13 +25,13 @@ export default function Footer() {
               {personalInfo.name}
             </span>
             <span className="text-xs ml-2" style={{ color: '#334155' }}>
-              Full-Stack Developer
+              {t('footer.role')}
             </span>
           </div>
 
           {/* Copyright */}
           <p className="text-xs" style={{ color: '#334155' }}>
-            © {year} Yahir Alberto — All rights reserved.
+            {t('footer.rightsFmt', { year })}
           </p>
 
           {/* Social */}

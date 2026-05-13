@@ -5,52 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Github, Linkedin, ArrowRight, Send, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 import { staggerContainer, staggerItem, fadeInUp, viewportConfig } from '@/lib/animations';
 import { personalInfo } from '@/lib/data';
-
-const PROJECT_TYPES = [
-  'Aplicación Web Full-Stack',
-  'Integración / Automatización ERP',
-  'Plataforma SaaS',
-  'Consultoría Técnica',
-  'Otro',
-];
-
-const BUDGETS = [
-  'Menos de $500 USD',
-  '$500 - $2,000 USD',
-  '$2,000 - $5,000 USD',
-  '$5,000+ USD',
-  'Aún no definido',
-];
-
-const contactLinks = [
-  {
-    icon: Mail,
-    label: 'Email',
-    value: 'yahir.dev13@gmail.com',
-    href: 'mailto:yahir.dev13@gmail.com',
-    accentColor: '#3B82F6',
-    accentBg: 'rgba(59, 130, 246, 0.08)',
-    accentBorder: 'rgba(59, 130, 246, 0.20)',
-  },
-  {
-    icon: Github,
-    label: 'GitHub',
-    value: 'yahirdev13',
-    href: 'https://github.com/yahirdev13',
-    accentColor: '#94A3B8',
-    accentBg: 'rgba(148, 163, 184, 0.06)',
-    accentBorder: 'rgba(148, 163, 184, 0.15)',
-  },
-  {
-    icon: Linkedin,
-    label: 'LinkedIn',
-    value: 'yahirdev13',
-    href: 'https://linkedin.com/in/yahirdev13',
-    accentColor: '#60A5FA',
-    accentBg: 'rgba(96, 165, 250, 0.08)',
-    accentBorder: 'rgba(96, 165, 250, 0.20)',
-  },
-];
+import { useT } from '@/i18n/useT';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
@@ -67,11 +22,13 @@ const inputStyle = {
 };
 
 export default function Contact() {
+  const { t, tArray } = useT();
+  const projectTypes = tArray('contact.projectTypes');
+
   const [form, setForm] = useState({
     name: '',
     email: '',
     projectType: '',
-    budget: '',
     message: '',
   });
   const [status, setStatus] = useState<Status>('idle');
@@ -94,7 +51,7 @@ export default function Contact() {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) return;
     if (form.message.length < 20) {
-      setErrorMsg('La descripción debe tener al menos 20 caracteres.');
+      setErrorMsg(t('contact.minCharsError'));
       setStatus('error');
       return;
     }
@@ -110,12 +67,12 @@ export default function Contact() {
       });
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data.error || 'Error al enviar');
+      if (!res.ok) throw new Error(data.error || t('contact.genericError'));
       setStatus('success');
-      setForm({ name: '', email: '', projectType: '', budget: '', message: '' });
+      setForm({ name: '', email: '', projectType: '', message: '' });
     } catch (err: unknown) {
       setStatus('error');
-      setErrorMsg(err instanceof Error ? err.message : 'Error al enviar el mensaje.');
+      setErrorMsg(err instanceof Error ? err.message : t('contact.genericError'));
     }
   };
 
@@ -126,6 +83,39 @@ export default function Contact() {
       transition: { delay: i * 0.07, duration: 0.4, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] },
     }),
   };
+
+  const contactLinks = [
+    {
+      icon: Mail,
+      label: t('contact.linkEmailLabel'),
+      value: personalInfo.email,
+      href: `mailto:${personalInfo.email}`,
+      accentColor: '#3B82F6',
+      accentBg: 'rgba(59, 130, 246, 0.08)',
+      accentBorder: 'rgba(59, 130, 246, 0.20)',
+      external: false,
+    },
+    {
+      icon: Github,
+      label: t('contact.linkGithubLabel'),
+      value: 'yahirdev13',
+      href: personalInfo.github,
+      accentColor: '#94A3B8',
+      accentBg: 'rgba(148, 163, 184, 0.06)',
+      accentBorder: 'rgba(148, 163, 184, 0.15)',
+      external: true,
+    },
+    {
+      icon: Linkedin,
+      label: t('contact.linkLinkedinLabel'),
+      value: 'yahirdev13',
+      href: personalInfo.linkedin,
+      accentColor: '#60A5FA',
+      accentBg: 'rgba(96, 165, 250, 0.08)',
+      accentBorder: 'rgba(96, 165, 250, 0.20)',
+      external: true,
+    },
+  ];
 
   return (
     <section id="contact" className="py-16 px-4 sm:px-6 lg:px-8">
@@ -140,20 +130,20 @@ export default function Contact() {
           className="mb-12"
         >
           <span className="text-sm font-semibold uppercase tracking-widest" style={{ color: '#3B82F6' }}>
-            Contacto
+            {t('contact.kicker')}
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold mt-2 mb-2" style={{ color: '#F1F5F9' }}>
-            ¿Tienes un proyecto{' '}
-            <span className="gradient-text">en mente?</span>
+            {t('contact.titlePart1')}{' '}
+            <span className="gradient-text">{t('contact.titlePart2')}</span>
           </h2>
           <p style={{ color: '#64748B' }}>
-            Cuéntame tu idea — respondo en menos de 24h.
+            {t('contact.subtitle')}
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
 
-          {/* Form — 3 cols */}
+          {/* Form */}
           <motion.div
             variants={fadeInUp}
             initial="hidden"
@@ -187,10 +177,10 @@ export default function Contact() {
                     </motion.div>
                     <div>
                       <h3 className="text-lg font-bold mb-1" style={{ color: '#F1F5F9' }}>
-                        ¡Mensaje enviado!
+                        {t('contact.successTitle')}
                       </h3>
                       <p style={{ color: '#64748B', fontSize: '0.875rem' }}>
-                        Te respondo en menos de 24h.
+                        {t('contact.successBody')}
                       </p>
                     </div>
                     <button
@@ -198,7 +188,7 @@ export default function Contact() {
                       className="text-sm mt-2 transition-colors duration-200"
                       style={{ color: '#3B82F6' }}
                     >
-                      Enviar otro mensaje →
+                      {t('contact.sendAnother')}
                     </button>
                   </motion.div>
                 ) : (
@@ -207,11 +197,10 @@ export default function Contact() {
                     onSubmit={handleSubmit}
                     className="flex flex-col gap-5"
                   >
-                    {/* Row 1: Name + Email */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <motion.div custom={0} variants={fieldVariants} initial="hidden" whileInView="visible" viewport={viewportConfig}>
                         <label className="block text-xs font-medium mb-1.5" style={{ color: '#64748B' }}>
-                          Nombre completo <span style={{ color: '#F87171' }}>*</span>
+                          {t('contact.labelName')} <span style={{ color: '#F87171' }}>{t('contact.required')}</span>
                         </label>
                         <input
                           type="text"
@@ -221,14 +210,14 @@ export default function Contact() {
                           onFocus={handleFocus}
                           onBlur={handleBlur}
                           required
-                          placeholder="Tu nombre"
+                          placeholder={t('contact.placeholderName')}
                           style={inputStyle}
                         />
                       </motion.div>
 
                       <motion.div custom={1} variants={fieldVariants} initial="hidden" whileInView="visible" viewport={viewportConfig}>
                         <label className="block text-xs font-medium mb-1.5" style={{ color: '#64748B' }}>
-                          Email <span style={{ color: '#F87171' }}>*</span>
+                          {t('contact.labelEmail')} <span style={{ color: '#F87171' }}>{t('contact.required')}</span>
                         </label>
                         <input
                           type="email"
@@ -238,57 +227,34 @@ export default function Contact() {
                           onFocus={handleFocus}
                           onBlur={handleBlur}
                           required
-                          placeholder="tu@email.com"
+                          placeholder={t('contact.placeholderEmail')}
                           style={inputStyle}
                         />
                       </motion.div>
                     </div>
 
-                    {/* Row 2: Project type + Budget */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <motion.div custom={2} variants={fieldVariants} initial="hidden" whileInView="visible" viewport={viewportConfig}>
-                        <label className="block text-xs font-medium mb-1.5" style={{ color: '#64748B' }}>
-                          Tipo de proyecto
-                        </label>
-                        <select
-                          name="projectType"
-                          value={form.projectType}
-                          onChange={handleChange}
-                          onFocus={handleFocus}
-                          onBlur={handleBlur}
-                          style={{ ...inputStyle, cursor: 'pointer' }}
-                        >
-                          <option value="" style={{ background: '#1E293B' }}>Selecciona...</option>
-                          {PROJECT_TYPES.map((t) => (
-                            <option key={t} value={t} style={{ background: '#1E293B' }}>{t}</option>
-                          ))}
-                        </select>
-                      </motion.div>
-
-                      <motion.div custom={3} variants={fieldVariants} initial="hidden" whileInView="visible" viewport={viewportConfig}>
-                        <label className="block text-xs font-medium mb-1.5" style={{ color: '#64748B' }}>
-                          Presupuesto aproximado
-                        </label>
-                        <select
-                          name="budget"
-                          value={form.budget}
-                          onChange={handleChange}
-                          onFocus={handleFocus}
-                          onBlur={handleBlur}
-                          style={{ ...inputStyle, cursor: 'pointer' }}
-                        >
-                          <option value="" style={{ background: '#1E293B' }}>Selecciona...</option>
-                          {BUDGETS.map((b) => (
-                            <option key={b} value={b} style={{ background: '#1E293B' }}>{b}</option>
-                          ))}
-                        </select>
-                      </motion.div>
-                    </div>
-
-                    {/* Message */}
-                    <motion.div custom={4} variants={fieldVariants} initial="hidden" whileInView="visible" viewport={viewportConfig}>
+                    <motion.div custom={2} variants={fieldVariants} initial="hidden" whileInView="visible" viewport={viewportConfig}>
                       <label className="block text-xs font-medium mb-1.5" style={{ color: '#64748B' }}>
-                        Descripción del proyecto <span style={{ color: '#F87171' }}>*</span>
+                        {t('contact.labelProjectType')}
+                      </label>
+                      <select
+                        name="projectType"
+                        value={form.projectType}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        style={{ ...inputStyle, cursor: 'pointer' }}
+                      >
+                        <option value="" style={{ background: '#1E293B' }}>{t('contact.placeholderSelect')}</option>
+                        {projectTypes.map((option) => (
+                          <option key={option} value={option} style={{ background: '#1E293B' }}>{option}</option>
+                        ))}
+                      </select>
+                    </motion.div>
+
+                    <motion.div custom={3} variants={fieldVariants} initial="hidden" whileInView="visible" viewport={viewportConfig}>
+                      <label className="block text-xs font-medium mb-1.5" style={{ color: '#64748B' }}>
+                        {t('contact.labelMessage')} <span style={{ color: '#F87171' }}>{t('contact.required')}</span>
                       </label>
                       <textarea
                         name="message"
@@ -298,15 +264,14 @@ export default function Contact() {
                         onBlur={handleBlur}
                         required
                         rows={5}
-                        placeholder="Cuéntame qué necesitas construir, qué problema resuelve y el alcance del proyecto..."
+                        placeholder={t('contact.placeholderMessage')}
                         style={{ ...inputStyle, resize: 'vertical', minHeight: '120px' }}
                       />
                       <p className="text-xs mt-1" style={{ color: form.message.length < 20 && form.message.length > 0 ? '#F87171' : '#334155' }}>
-                        {form.message.length}/20 caracteres mínimos
+                        {t('contact.charCounterFmt', { n: form.message.length })}
                       </p>
                     </motion.div>
 
-                    {/* Error */}
                     <AnimatePresence>
                       {status === 'error' && errorMsg && (
                         <motion.div
@@ -326,8 +291,7 @@ export default function Contact() {
                       )}
                     </AnimatePresence>
 
-                    {/* Submit */}
-                    <motion.div custom={5} variants={fieldVariants} initial="hidden" whileInView="visible" viewport={viewportConfig}>
+                    <motion.div custom={4} variants={fieldVariants} initial="hidden" whileInView="visible" viewport={viewportConfig}>
                       <button
                         type="submit"
                         disabled={status === 'loading'}
@@ -341,12 +305,12 @@ export default function Contact() {
                         {status === 'loading' ? (
                           <>
                             <Loader size={16} className="animate-spin" />
-                            Enviando...
+                            {t('contact.sending')}
                           </>
                         ) : (
                           <>
                             <Send size={16} />
-                            Enviar mensaje
+                            {t('contact.send')}
                           </>
                         )}
                       </button>
@@ -357,9 +321,8 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          {/* Right col — 2 cols */}
+          {/* Right col */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-            {/* Availability card */}
             <motion.div
               variants={fadeInUp}
               initial="hidden"
@@ -374,16 +337,14 @@ export default function Contact() {
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#34D399' }} />
                 <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#34D399' }}>
-                  Disponible ahora
+                  {t('contact.availableLabel')}
                 </span>
               </div>
               <p className="text-sm leading-relaxed" style={{ color: '#64748B' }}>
-                Acepto proyectos freelance de alcance definido o colaboraciones de largo plazo.
-                Respondo en menos de 24h.
+                {t('contact.availableBody')}
               </p>
             </motion.div>
 
-            {/* Contact links */}
             <motion.div
               variants={staggerContainer}
               initial="hidden"
@@ -397,8 +358,8 @@ export default function Contact() {
                   <motion.a
                     key={card.label}
                     href={card.href}
-                    target={card.label !== 'Email' ? '_blank' : undefined}
-                    rel={card.label !== 'Email' ? 'noopener noreferrer' : undefined}
+                    target={card.external ? '_blank' : undefined}
+                    rel={card.external ? 'noopener noreferrer' : undefined}
                     variants={staggerItem}
                     whileHover={{ x: 4 }}
                     className="group flex items-center gap-3 p-4 rounded-xl transition-all duration-200"
