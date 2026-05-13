@@ -44,7 +44,7 @@ const techGroups = [
       { name: 'MongoDB',       slug: 'mongodb'            },
       { name: 'PostgreSQL',    slug: 'postgresql'         },
       { name: 'MySQL',         slug: 'mysql'              },
-      { name: 'SQL Server',    slug: 'microsoftsqlserver' },
+      { name: 'SQL Server',    slug: 'microsoftsqlserver', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg' },
       { name: 'Firebase',      slug: 'firebase'           },
       { name: 'Redis',         slug: 'redis'              },
     ],
@@ -143,7 +143,7 @@ export default function Skills() {
                     <div className="w-7 h-7 flex items-center justify-center">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={`https://cdn.simpleicons.org/${tech.slug}`}
+                        src={('iconUrl' in tech && tech.iconUrl) ? tech.iconUrl : `https://cdn.simpleicons.org/${tech.slug}`}
                         alt={tech.name}
                         width={28}
                         height={28}
