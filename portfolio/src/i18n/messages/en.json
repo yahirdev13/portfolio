@@ -152,28 +152,33 @@
       },
       "cleany": {
         "title": "Cleany SaaS",
-        "category": "SaaS Platform",
+        "category": "SaaS Platform · Live in production",
         "role": "Full-Stack Developer",
-        "description": "Multi-tenant SaaS in progress for cleaning companies: strict per-tenant data isolation, real-time booking engine, recurring and one-off payments via Stripe Webhooks, staff management and operational analytics — Next.js 15 + Fastify + PostgreSQL + Docker.",
-        "problem": "Companies in the sector were running on WhatsApp and Excel: no revenue visibility, no occupancy control, no measurable retention. Scaling meant hiring more admin staff. A proprietary SaaS solution was economically out of reach.",
-        "solution": "Multi-tenant SaaS architecture with PostgreSQL data isolation per client under the same Docker infrastructure. Fastify backend for high concurrency. Stripe Webhooks handle recurring subscriptions and one-off payments. The booking engine computes availability by cross-referencing staff schedules, service zones and cleaning type. Analytics dashboard with real-time metrics.",
-        "impact": "Architecture designed for new-tenant onboarding with zero marginal infrastructure cost. Each company gets full digital operations from day one.",
+        "description": "Multi-tenant SaaS live in production (cleany.pro) for residential and commercial cleaning agencies in Mexico: strict per-tenant data isolation, real-time booking and route tracking, recurring and one-off payments via Stripe Webhooks, WhatsApp and email automation, and operational analytics — Next.js 15 + Fastify + PostgreSQL + Docker.",
+        "problem": "Agencies in the sector were running on WhatsApp and Excel: no revenue visibility, no occupancy control, no service traceability and no measurable retention. Scaling meant hiring more admin staff. A proprietary SaaS solution was economically out of reach.",
+        "solution": "Multi-tenant SaaS architecture with PostgreSQL data isolation per client under the same Docker infrastructure. Fastify backend for high concurrency. Stripe Webhooks handle recurring subscriptions and one-off payments. Booking engine computes availability by cross-referencing staff schedules, service zones and cleaning type. Live route panel with delay tracking, automated reminders via WhatsApp and email, automatic invoicing and reports on cash flow, revenue and performance.",
+        "impact": "Live product at cleany.pro serving cleaning agencies in Mexico. Operational setup in ~15 minutes per agency. New-tenant onboarding with zero marginal infrastructure cost — each agency gets full digital operations from day one.",
         "highlights": [
+          "Live in production at cleany.pro — residential and commercial cleaning agencies in Mexico",
           "Multi-tenant with PostgreSQL data isolation per company (schema-per-tenant)",
           "Fastify backend: low latency and high concurrency across tenants",
           "Stripe Webhooks: recurring subscriptions, one-off payments, dunning handling",
-          "Booking engine: real-time availability cross-referencing staff, zones and service type",
-          "Analytics: revenue, occupancy and customer retention in real time",
-          "Auto-assignment of staff by zone and availability",
-          "Containerized infrastructure with Docker Compose; TypeScript end-to-end"
+          "Booking engine and live route panel with delay tracking and customer satisfaction signals",
+          "WhatsApp and email automation: reminders, confirmations and collections",
+          "Automatic invoicing and reports on cash flow, revenue and performance",
+          "360° management: customers, staff, auto-assignment by zone, service history",
+          "256-bit encryption, backups every 6h and containerized infrastructure with Docker Compose",
+          "TypeScript end-to-end and new-agency onboarding in ~15 minutes"
         ],
         "metrics": [
+          { "label": "Status", "value": "Live in production" },
+          { "label": "URL", "value": "cleany.pro" },
           { "label": "Isolation", "value": "DB per tenant" },
           { "label": "Backend", "value": "Fastify" },
           { "label": "Payments", "value": "Stripe Webhooks" },
-          { "label": "Booking", "value": "Real-time" },
-          { "label": "Infra", "value": "Docker Compose" },
-          { "label": "Status", "value": "In progress" }
+          { "label": "Automation", "value": "WhatsApp + Email" },
+          { "label": "Onboarding", "value": "~15 min" },
+          { "label": "Infra", "value": "Docker Compose" }
         ]
       },
       "tersoft-cotizador": {

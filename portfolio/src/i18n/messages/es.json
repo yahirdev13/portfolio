@@ -152,28 +152,33 @@
       },
       "cleany": {
         "title": "Cleany SaaS",
-        "category": "Plataforma SaaS",
+        "category": "Plataforma SaaS · En producción",
         "role": "Desarrollador Full-Stack",
-        "description": "SaaS multi-tenant en construcción para empresas de limpieza: aislamiento total de datos por tenant, motor de booking en tiempo real, suscripciones y pagos únicos con Stripe Webhooks, gestión de empleados y analítica operativa — stack Next.js 15 + Fastify + PostgreSQL + Docker.",
-        "problem": "Las empresas del sector operaban con WhatsApp y Excel: sin visibilidad de ingresos, sin control de ocupación, sin retención medible. Escalar significaba contratar administrativos. Una solución SaaS propia era económicamente inaccesible.",
-        "solution": "Arquitectura SaaS multi-tenant con aislamiento de datos PostgreSQL por cliente bajo la misma infraestructura Docker. Backend Fastify para alta concurrencia. Stripe Webhooks gestiona suscripciones recurrentes y pagos únicos. El motor de booking calcula disponibilidad cruzando agenda de empleados, zonas de servicio y tipo de limpieza. Dashboard analítico con métricas en tiempo real.",
-        "impact": "Arquitectura diseñada para onboarding de nuevos tenants sin coste marginal de infraestructura. Cada empresa accede a operación digital completa desde su primer día activo.",
+        "description": "SaaS multi-tenant ya en producción (cleany.pro) para agencias de limpieza residencial y comercial en México: aislamiento total de datos por tenant, motor de booking y rutas en vivo, suscripciones y pagos con Stripe Webhooks, automatización por WhatsApp y correo, y analítica operativa — stack Next.js 15 + Fastify + PostgreSQL + Docker.",
+        "problem": "Las agencias del sector operaban con WhatsApp y Excel: sin visibilidad de ingresos, sin control de ocupación, sin trazabilidad de servicios ni retención medible. Escalar significaba contratar administrativos. Una solución SaaS propia era económicamente inaccesible.",
+        "solution": "Arquitectura SaaS multi-tenant con aislamiento de datos PostgreSQL por cliente bajo la misma infraestructura Docker. Backend Fastify para alta concurrencia. Stripe Webhooks gestiona suscripciones recurrentes y pagos únicos. Motor de booking que calcula disponibilidad cruzando agenda de equipos, zonas de servicio y tipo de limpieza. Panel de rutas en vivo con seguimiento de retrasos, recordatorios automáticos por WhatsApp y correo, facturación automática y reportes de flujo de caja, ingresos y desempeño.",
+        "impact": "Producto vivo en cleany.pro sirviendo a agencias en México. Setup operativo en ~15 minutos por agencia. Onboarding de nuevos tenants sin coste marginal de infraestructura — cada agencia accede a operación digital completa desde su primer día.",
         "highlights": [
+          "En producción en cleany.pro — agencias de limpieza residencial y comercial en México",
           "Multi-tenant con aislamiento PostgreSQL por empresa (schema-per-tenant)",
           "Backend Fastify: latencia baja y alta concurrencia para múltiples tenants",
           "Stripe Webhooks: suscripciones recurrentes, pagos únicos, manejo de fallos de cobro",
-          "Booking engine: disponibilidad en tiempo real cruzando empleados, zonas y tipo de servicio",
-          "Analytics: ingresos, ocupación y retención de clientes en vivo",
-          "Asignación automática de empleados por zona y disponibilidad",
-          "Infraestructura containerizada con Docker Compose; TypeScript end-to-end"
+          "Motor de booking y rutas en vivo con seguimiento de retrasos y satisfacción del cliente",
+          "Automatización por WhatsApp y correo: recordatorios, confirmaciones y cobros",
+          "Facturación automática y reportes de flujo de caja, ingresos y desempeño",
+          "Gestión 360°: clientes, equipos, asignación automática por zona, historial de servicios",
+          "Cifrado 256-bit, backups cada 6 h e infraestructura containerizada con Docker Compose",
+          "TypeScript end-to-end y onboarding de nueva agencia en ~15 minutos"
         ],
         "metrics": [
+          { "label": "Estado", "value": "En producción" },
+          { "label": "URL", "value": "cleany.pro" },
           { "label": "Aislamiento", "value": "DB por tenant" },
           { "label": "Backend", "value": "Fastify" },
           { "label": "Pagos", "value": "Stripe Webhooks" },
-          { "label": "Booking", "value": "Tiempo real" },
-          { "label": "Infra", "value": "Docker Compose" },
-          { "label": "Estado", "value": "En desarrollo" }
+          { "label": "Automatización", "value": "WhatsApp + Email" },
+          { "label": "Onboarding", "value": "~15 min" },
+          { "label": "Infra", "value": "Docker Compose" }
         ]
       },
       "tersoft-cotizador": {

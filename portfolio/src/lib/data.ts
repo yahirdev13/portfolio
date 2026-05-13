@@ -38,9 +38,10 @@ export const projects: Project[] = [
   {
     id: 'cleany',
     tech: ['Next.js 15', 'TypeScript', 'Fastify', 'PostgreSQL', 'Stripe', 'Docker', 'Docker Compose'],
-    status: 'in-progress',
+    status: 'completed',
     featured: true,
-    date: '2025 — Presente',
+    live: 'https://www.cleany.pro/',
+    date: '2025',
     images: [
       'https://placehold.co/800x450/1E293B/FBBF24?text=Cleany+-+Analytics',
       'https://placehold.co/800x450/0F172A/FBBF24?text=Cleany+-+Booking',
